@@ -1,0 +1,15 @@
+#Luoming Xu ignored files
+package.json
+node_modules/conventional-commit-types/
+node_modules/cz-conventional-changelog/
+node_modules/lodash.map/
+node_modules/longest/
+node_modules/right-pad/
+node_modules/word-wrap/
+package-lock.json
+#Luoming Xu ignored files END
+/.idea/
+/target/
+*.jar
+target/
+/src/test/
