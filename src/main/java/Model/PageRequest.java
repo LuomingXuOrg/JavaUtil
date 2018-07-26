@@ -9,10 +9,15 @@
 
 package Model;
 
+import Annotation.ListSortDefault;
+
 public class PageRequest
 {
-    private Integer size;
-    private Integer page;
+    private Integer size = 10;
+    private Integer page = 0;
+
+    @ListSortDefault
+    private Sort sort = new Sort(Sort.Direction.ASC, "id");
 
     public Integer getSize()
     {
@@ -34,12 +39,23 @@ public class PageRequest
         this.page = page;
     }
 
+    public Sort getSort()
+    {
+        return sort;
+    }
+
+    public void setSort(Sort sort)
+    {
+        this.sort = sort;
+    }
+
     @Override
     public String toString()
     {
         return "PageRequest{" +
                 "size=" + size +
                 ", page=" + page +
+                ", sort=" + sort +
                 '}';
     }
 }
