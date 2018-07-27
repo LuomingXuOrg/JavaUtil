@@ -11,6 +11,7 @@ package Util;
 
 import Model.PageModel;
 import Model.PageRequest;
+import Exception.SortException;
 
 import java.util.*;
 
@@ -50,7 +51,14 @@ public class ListPageHelperUtil
         }
 
         //sort
-        SortUtil.doSort(pageRequest.getSort(), paramLists);
+        try
+        {
+            SortUtil.doSort(pageRequest.getSort(), paramLists);
+        }
+        catch (SortException e)
+        {
+            e.printStackTrace();
+        }
 
         Integer size = pageRequest.getSize();
         Integer page = pageRequest.getPage() + 1;

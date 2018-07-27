@@ -17,7 +17,7 @@ public class PageRequest
     private Integer page = 0;
 
     @ListSortDefault
-    private Sort sort = new Sort(Sort.Direction.ASC, "id");
+    private Sort sort;
 
     public Integer getSize()
     {

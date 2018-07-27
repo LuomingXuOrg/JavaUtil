@@ -11,9 +11,14 @@ package Model;
 
 public class Sort
 {
-    public Sort(){}
+    public Sort() {}
 
-    public Sort(Direction direction, String fieldName)
+    public Sort(String fieldName)
+    {
+        this.fieldName = fieldName;
+    }
+
+    public Sort(String fieldName, Direction direction)
     {
         this.direction = direction;
         this.fieldName = fieldName;
@@ -25,9 +30,9 @@ public class Sort
         ASC
     }
 
-    private Direction direction=Direction.DESC;
+    private Direction direction = Direction.ASC;
 
-    private String fieldName = "id";
+    private String fieldName;
 
     public Direction getDirection()
     {

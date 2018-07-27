@@ -14,6 +14,7 @@ import Exception.SortException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.Map;
 
 public class SortUtil
 {
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+
     private static final String FIELD_CLASS = "getMethodResult";
     private static final String INVOKE_RESULT = "invokeResult";
 
@@ -29,8 +32,14 @@ public class SortUtil
     private static final String DOUBLE_CLASS = "java.lang.Double";
     private static final String DATE_CLASS = "java.util.Date";
 
-    public static <T> void doSort(Sort sort, List<T> paramLists)
+    public static <T> void doSort(Sort sort, List<T> paramLists) throws SortException
     {
+        //判断是否选择需要排序的fieldName
+        if (sort.getFieldName() == null)
+        {
+            throw new SortException("You do not choose one field which you want to sort by it! ");
+        }
+
         paramLists.sort((one, two) ->
         {
             try
@@ -71,7 +80,7 @@ public class SortUtil
             }
             if (mapOne.get(FIELD_CLASS).equals(DATE_CLASS))
             {
-                return compare(java.sql.Date.valueOf(mapOne.get(INVOKE_RESULT).toString()), java.sql.Date.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
+                return compare(DATE_FORMAT.parse(DATE_FORMAT.format(mapOne.get(INVOKE_RESULT))), DATE_FORMAT.parse(DATE_FORMAT.format(mapTwo.get(INVOKE_RESULT))), direction);
             }
             else
             {
@@ -164,5 +173,4 @@ public class SortUtil
 
         return 0;
     }
-
 }

@@ -9,37 +9,76 @@
 
 package Model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class testModel
 {
-    private Integer id;
-    private Integer number;
+    private Integer intTemp;
+    private Date dateTemp;
+    private Long longTemp;
+    private Double doubleTemp;
+    private testModel testModelTemp;
 
-    public Integer getId()
+    public Integer getIntTemp()
     {
-        return id;
+        return intTemp;
     }
 
-    public void setId(Integer id)
+    public void setIntTemp(Integer intTemp)
     {
-        this.id = id;
+        this.intTemp = intTemp;
     }
 
-    public Integer getNumber()
+    public Date getDateTemp()
     {
-        return number;
+        return dateTemp;
     }
 
-    public void setNumber(Integer number)
+    public void setDateTemp(Date dateTemp)
     {
-        this.number = number;
+        this.dateTemp = dateTemp;
+    }
+
+    public Long getLongTemp()
+    {
+        return longTemp;
+    }
+
+    public void setLongTemp(Long longTemp)
+    {
+        this.longTemp = longTemp;
+    }
+
+    public Double getDoubleTemp()
+    {
+        return doubleTemp;
+    }
+
+    public void setDoubleTemp(Double doubleTemp)
+    {
+        this.doubleTemp = doubleTemp;
+    }
+
+    public testModel getTestModelTemp()
+    {
+        return testModelTemp;
+    }
+
+    public void setTestModelTemp(testModel testModelTemp)
+    {
+        this.testModelTemp = testModelTemp;
     }
 
     @Override
     public String toString()
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return "testModel{" +
-                "id=" + id +
-                ", number=" + number +
+                "intTemp=" + intTemp +
+                ", dateTemp=" + sdf.format(dateTemp) +
+                ", longTemp=" + longTemp +
+                ", doubleTemp=" + doubleTemp +
                 '}';
     }
 }
