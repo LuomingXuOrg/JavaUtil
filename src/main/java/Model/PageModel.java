@@ -15,19 +15,19 @@ public class PageModel<T>
 {
     public PageModel() {}
 
-    public PageModel(Integer totalPages, Integer totalElements, Integer numberOfElements, Integer size, Integer number, List<T> content, boolean empty)
+    public PageModel(Integer totalPages, Integer totalElements, Integer pageOfElements, Integer size, Integer page, List<T> content, boolean empty)
     {
         this.totalPages = totalPages;
         this.totalElements = totalElements;
-        this.numberOfElements = numberOfElements;
+        this.pageOfElements = pageOfElements;
         this.size = size;
-        this.number = number;
+        this.page = page;
         this.content = content;
         this.empty = empty;
     }
 
     /**
-     * 总页数
+     * 总页数--从1开始
      */
     private Integer totalPages;
     /**
@@ -37,27 +37,27 @@ public class PageModel<T>
     /**
      * 当前页数据数
      */
-    private Integer numberOfElements;
+    private Integer pageOfElements;
     /**
      * 页内数据默认大小
      */
     private Integer size;//
     /**
-     * 当前页码
+     * 当前页码--从1开始
      */
-    private Integer number;
+    private Integer page;
     /**
      * 包含的list数据
      */
     private List<T> content;
     /**
-     * 是否为空
+     * 是否为空, 默认为false
      */
     private boolean empty = false;
 
-    public void setNumberOfElements_Content_TotalPages(Integer numberOfElements, List<T> content, Integer totalPages)
+    public void setPageOfElements_Content_TotalPages(Integer pageOfElements, List<T> content, Integer totalPages)
     {
-        this.numberOfElements = numberOfElements;
+        this.pageOfElements = pageOfElements;
         this.content = content;
         this.totalPages = totalPages;
     }
@@ -82,14 +82,14 @@ public class PageModel<T>
         this.totalElements = totalElements;
     }
 
-    public Integer getNumberOfElements()
+    public Integer getPageOfElements()
     {
-        return numberOfElements;
+        return pageOfElements;
     }
 
-    public void setNumberOfElements(Integer numberOfElements)
+    public void setPageOfElements(Integer pageOfElements)
     {
-        this.numberOfElements = numberOfElements;
+        this.pageOfElements = pageOfElements;
     }
 
     public Integer getSize()
@@ -102,14 +102,14 @@ public class PageModel<T>
         this.size = size;
     }
 
-    public Integer getNumber()
+    public Integer getPage()
     {
-        return number;
+        return page;
     }
 
-    public void setNumber(Integer number)
+    public void setPage(Integer page)
     {
-        this.number = number;
+        this.page = page;
     }
 
     public List<T> getContent()
@@ -139,14 +139,30 @@ public class PageModel<T>
     @Override
     public String toString()
     {
+        StringBuilder temp = new StringBuilder("\ncontent[");
+
+        if (content != null && content.size() > 0)
+        {
+            for (Object item : content)
+            {
+                temp.append(item.toString()).append("\n");
+            }
+        }
+        else
+        {
+            temp.append("null");
+        }
+
+        temp.append("]");
+
         return "PageModel{" +
                 "totalPages=" + totalPages +
                 ", totalElements=" + totalElements +
-                ", numberOfElements=" + numberOfElements +
+                ", pageOfElements=" + pageOfElements +
                 ", size=" + size +
-                ", number=" + number +
-                ", content=" + content +
+                ", page=" + page +
                 ", empty=" + empty +
+                temp +
                 '}';
     }
 }

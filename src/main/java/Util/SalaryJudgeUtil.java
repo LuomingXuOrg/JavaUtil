@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : SalaryJudgeForXjyUtil.java
+ * File Name : SalaryJudgeUtil.java
  * CreateTime: 2018/07/22 18:43:55
  * LastModifiedDate : 18-7-22 下午6:31
  */
@@ -11,7 +11,7 @@ package Util;
 
 import java.math.BigDecimal;
 
-public class SalaryJudgeForXjyUtil
+public class SalaryJudgeUtil
 {
     //每日薪资: mrxz 0: 不限; 1: 500以下; 2: 500-1000; 3: 1001-1500; 4: 1501-2000; 5: 2001-2500; 6: 2500以上
     private static int getSalaryRange(BigDecimal salary, Long priceUnit)

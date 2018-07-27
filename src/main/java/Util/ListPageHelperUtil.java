@@ -17,7 +17,7 @@ import java.util.*;
 
 public class ListPageHelperUtil
 {
-    //这边设置了最大的size和page, 可以修改
+    //设置最大的size和page, 可以修改
     private final static Integer maxSize = 50;
     private final static Integer maxPage = 50;
 
@@ -51,20 +51,23 @@ public class ListPageHelperUtil
         }
 
         //sort
-        try
+        if (pageRequest.getSort() != null)
         {
-            SortUtil.doSort(pageRequest.getSort(), paramLists);
-        }
-        catch (SortException e)
-        {
-            e.printStackTrace();
+            try
+            {
+                SortUtil.doSort(pageRequest.getSort(), paramLists);
+            }
+            catch (SortException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         Integer size = pageRequest.getSize();
-        Integer page = pageRequest.getPage() + 1;
+        Integer page = pageRequest.getPage();
 
         //若是传来的数据不对, 则默认为20, 1
-        if ((size < 1 | size > maxSize) || (page > maxPage))
+        if ((size < 1 | size > maxSize) || (page < 1 | page > maxPage))
         {
             size = 20;
             page = 1;
@@ -74,8 +77,8 @@ public class ListPageHelperUtil
         pageModel.setTotalElements(paramLists.size());
         //页内数据默认大小
         pageModel.setSize(size);
-        //当前页数
-        pageModel.setNumber(page - 1);
+        //当前页码
+        pageModel.setPage(page);
 
         //需要的数量大于总的数据量
         if (size >= paramLists.size())
@@ -87,7 +90,7 @@ public class ListPageHelperUtil
                 return pageModel;
             }
 
-            pageModel.setNumberOfElements_Content_TotalPages(paramLists.size(), paramLists, 1);
+            pageModel.setPageOfElements_Content_TotalPages(paramLists.size(), paramLists, 1);
             return pageModel;
         }
 
@@ -104,20 +107,21 @@ public class ListPageHelperUtil
         catch (Exception e)
         {
             System.err.println("List index out of range. ");
-            System.err.println(String.format("We count \'%s\' data in paramLists", count));
+            System.err.println(String.format("We count \'%s\' data in this page.", count));
             if (count == 0)
             {
                 pageModel.setEmpty(true);
+                pageModel.setTotalPages((paramLists.size() / size) + 1);
                 return pageModel;
             }
             else
             {
-                pageModel.setNumberOfElements_Content_TotalPages(count, pagedLists, paramLists.size() / size);
+                pageModel.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
             }
             return pageModel;
         }
 
-        pageModel.setNumberOfElements_Content_TotalPages(count, pagedLists, paramLists.size() / size);
+        pageModel.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
 
         return pageModel;
     }

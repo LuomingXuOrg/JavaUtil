@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : ArriveTimeForXjyUtil.java
+ * File Name : ArriveTimeUtil.java
  * CreateTime: 2018/07/22 18:43:55
  * LastModifiedDate : 18-7-22 下午6:38
  */
@@ -12,7 +12,7 @@ package Util;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class ArriveTimeForXjyUtil
+public class ArriveTimeUtil
 {
     private final static Date today = new Date(System.currentTimeMillis());
 

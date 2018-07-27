@@ -1,4 +1,4 @@
-import Annotation.ListSortDefault;
+
 import Model.PageRequest;
 import Model.Sort;
 import Model.testModel;
@@ -6,9 +6,6 @@ import Util.ListPageHelperUtil;
 import Util.SortUtil;
 import Exception.SortException;
 
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,24 +35,9 @@ public class Main
             temp.setTestModelTemp(new testModel());
             testModels.add(temp);
         }
-
         System.err.println("-------------normal-------------");
-//        for (Object item : testModels)
-//        {
-//            System.out.println(item);
-//        }
-//        try
-//        {
-//            SortUtil.doSort(new Sort("testModelTemp", Sort.Direction.DESC), testModels);
-//        }
-//        catch (SortException e)
-//        {
-//            e.printStackTrace();
-//        }
-//        System.err.println("-------------sorted-------------");
-//        for (Object item : testModels)
-//        {
-//            System.out.println(item);
-//        }
+        testModels.forEach(System.err::println);
+        System.err.println("-------------after-------------");
+        System.err.println(ListPageHelperUtil.doPage(new PageRequest(3, 7, new Sort("intTemp", Sort.Direction.DESC)), testModels));
     }
 }

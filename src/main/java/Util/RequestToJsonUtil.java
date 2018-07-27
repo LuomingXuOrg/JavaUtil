@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : JsonForXjyUtil.java
+ * File Name : RequestToJsonUtil.java
  * CreateTime: 2018/07/22 18:43:55
  * LastModifiedDate : 18-7-22 下午6:43
  */
@@ -11,7 +11,7 @@ package Util;/*
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : Util.JsonForXjyUtil.java
+ * File Name : Util.RequestToJsonUtil.java
  * CreateTime: 2018/07/22 18:31:41
  * LastModifiedDate : 18-7-20 下午12:42
  */
@@ -24,7 +24,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonForXjyUtil
+public class RequestToJsonUtil
 {
     /**
      * get json form http request

@@ -73,7 +73,7 @@ public class testModel
     @Override
     public String toString()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         return "testModel{" +
                 "intTemp=" + intTemp +
                 ", dateTemp=" + sdf.format(dateTemp) +

@@ -14,30 +14,32 @@ import Exception.SortException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SortUtil
 {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-    private static final String FIELD_CLASS = "getMethodResult";
+    //返回的字段的类名
+    private static final String FIELD_CLASS = "fieldClass";
+    //返回的字段
     private static final String INVOKE_RESULT = "invokeResult";
 
+    //定义了一般需要进行排序的类名
     private static final String INTEGER_CLASS = "java.lang.Integer";
     private static final String LONG_CLASS = "java.lang.Long";
     private static final String DOUBLE_CLASS = "java.lang.Double";
     private static final String DATE_CLASS = "java.util.Date";
 
+    //给外部调用的排序的方法
     public static <T> void doSort(Sort sort, List<T> paramLists) throws SortException
     {
-        //判断是否选择需要排序的fieldName
+        //判断是否选择了需要排序的fieldName
         if (sort.getFieldName() == null)
         {
-            throw new SortException("You do not choose one field which you want to sort by it! ");
+            throw new SortException("You did not choose one field which you want to sort by it! ");
         }
 
         paramLists.sort((one, two) ->
@@ -49,13 +51,16 @@ public class SortUtil
             catch (Exception e)
             {
                 e.printStackTrace();
+                System.exit(1); //无法进行比较, 退出程序
             }
             return 0;
         });
     }
 
-    private static Integer compare(Object paramOne, Object paramTwo, String fieldName, Sort.Direction direction) throws Exception
+    //给doSort方法调用的比较方法
+    private static Integer compare(Object paramOne, Object paramTwo, String fieldName, Sort.Direction direction) throws SortException
     {
+        //如果两个类的类名不一样, 抛出异常
         if (!paramOne.getClass().getName().equals(paramTwo.getClass().getName()))
         {
             throw new SortException("The two params is not in one class!");
@@ -63,9 +68,10 @@ public class SortUtil
 
         try
         {
-            Map<String, Object> mapOne = getGetMethod(paramOne, fieldName);
-            Map<String, Object> mapTwo = getGetMethod(paramTwo, fieldName);
+            Map<String, Object> mapOne = doFieldGetMethod(paramOne, fieldName);
+            Map<String, Object> mapTwo = doFieldGetMethod(paramTwo, fieldName);
 
+            //判断获取的类名是哪个类
             if (mapOne.get(FIELD_CLASS).equals(INTEGER_CLASS))
             {
                 return compare(Integer.parseInt(mapOne.get(INVOKE_RESULT).toString()), Integer.parseInt(mapTwo.get(INVOKE_RESULT).toString()), direction);
@@ -87,7 +93,7 @@ public class SortUtil
                 throw new SortException("Can not solve this attribute's type!");
             }
         }
-        catch (Exception e)
+        catch (InvocationTargetException | IllegalAccessException | ParseException e)
         {
             e.printStackTrace();
         }
@@ -95,7 +101,8 @@ public class SortUtil
         return 0;
     }
 
-    private static Map<String, Object> getGetMethod(Object param, String fieldName) throws InvocationTargetException, IllegalAccessException
+    //通过类里面的get方法来获取这个字段
+    private static Map<String, Object> doFieldGetMethod(Object param, String fieldName) throws InvocationTargetException, IllegalAccessException, NullPointerException
     {
         Map<String, Object> map = new HashMap<>();
 
@@ -112,15 +119,19 @@ public class SortUtil
                     throw new NullPointerException("Such fieldName has no get method or this field is null!");
                 }
 
+                //存入字段类名
                 map.put(FIELD_CLASS, obj.getClass().getName());
+                //存入字段
                 map.put(INVOKE_RESULT, obj);
 
-                return map;
+                return map; //找到get方法直接return, 不再循环
             }
         }
 
         return map;
     }
+
+    //对不同的类型的字段调用不同的方法
 
     private static Integer compare(Integer one, Integer two, Sort.Direction direction)
     {

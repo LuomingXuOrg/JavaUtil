@@ -30,8 +30,10 @@ public class Sort
         ASC
     }
 
-    private Direction direction = Direction.ASC;
+    //正序倒序
+    private Direction direction;
 
+    //需要进行排序的字段名
     private String fieldName;
 
     public Direction getDirection()

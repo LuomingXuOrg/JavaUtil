@@ -9,14 +9,26 @@
 
 package Model;
 
-import Annotation.ListSortDefault;
+import Annotation.SortDefault;
 
 public class PageRequest
 {
+    public PageRequest(){}
+
+    public PageRequest(Integer size, Integer page, Sort sort)
+    {
+        this.size = size;
+        this.page = page;
+        this.sort = sort;
+    }
+
+    //一页里面的数据的大小
     private Integer size = 10;
+
+    //第几页
     private Integer page = 0;
 
-    @ListSortDefault
+    @SortDefault
     private Sort sort;
 
     public Integer getSize()
