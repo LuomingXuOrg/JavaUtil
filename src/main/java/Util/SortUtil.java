@@ -12,9 +12,9 @@ package Util;
 import Model.Sort;
 import Exception.SortException;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -58,7 +58,7 @@ public class SortUtil
     }
 
     //给doSort方法调用的比较方法
-    private static Integer compare(Object paramOne, Object paramTwo, String fieldName, Sort.Direction direction) throws SortException
+    private static Integer compare(Object paramOne, Object paramTwo, String fieldName, Sort.Direction direction) throws Exception
     {
         //如果两个类的类名不一样, 抛出异常
         if (!paramOne.getClass().getName().equals(paramTwo.getClass().getName()))
@@ -66,43 +66,67 @@ public class SortUtil
             throw new SortException("The two params is not in one class!");
         }
 
-        try
-        {
-            Map<String, Object> mapOne = doFieldGetMethod(paramOne, fieldName);
-            Map<String, Object> mapTwo = doFieldGetMethod(paramTwo, fieldName);
+        Map<String, Object> mapOne = getFieldByField(paramOne, fieldName);
+        Map<String, Object> mapTwo = getFieldByField(paramTwo, fieldName);
 
-            //判断获取的类名是哪个类
-            if (mapOne.get(FIELD_CLASS).equals(INTEGER_CLASS))
+        //判断获取的类名是哪个类
+        if (mapOne.get(FIELD_CLASS).equals(INTEGER_CLASS))
+        {
+            return compare(Integer.parseInt(mapOne.get(INVOKE_RESULT).toString()), Integer.parseInt(mapTwo.get(INVOKE_RESULT).toString()), direction);
+        }
+        if (mapOne.get(FIELD_CLASS).equals(DOUBLE_CLASS))
+        {
+            return compare(Double.valueOf(mapOne.get(INVOKE_RESULT).toString()), Double.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
+        }
+        if (mapOne.get(FIELD_CLASS).equals(LONG_CLASS))
+        {
+            return compare(Long.valueOf(mapOne.get(INVOKE_RESULT).toString()), Long.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
+        }
+        if (mapOne.get(FIELD_CLASS).equals(DATE_CLASS))
+        {
+            return compare(DATE_FORMAT.parse(DATE_FORMAT.format(mapOne.get(INVOKE_RESULT))), DATE_FORMAT.parse(DATE_FORMAT.format(mapTwo.get(INVOKE_RESULT))), direction);
+        }
+        else
+        {
+            throw new SortException("Can not solve this attribute's type!");
+        }
+    }
+
+    //直接通过反射来获取这个字段的值和类名
+    private static Map<String, Object> getFieldByField(Object param, String fieldName) throws IllegalAccessException, SortException
+    {
+        Map<String, Object> map = new HashMap<>();
+
+        Class c = param.getClass();
+        Field[] fields = c.getDeclaredFields();
+
+        for (Field field : fields)
+        {
+            field.setAccessible(true);
+
+            if (field.getName().equals(fieldName))
             {
-                return compare(Integer.parseInt(mapOne.get(INVOKE_RESULT).toString()), Integer.parseInt(mapTwo.get(INVOKE_RESULT).toString()), direction);
-            }
-            if (mapOne.get(FIELD_CLASS).equals(DOUBLE_CLASS))
-            {
-                return compare(Double.valueOf(mapOne.get(INVOKE_RESULT).toString()), Double.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
-            }
-            if (mapOne.get(FIELD_CLASS).equals(LONG_CLASS))
-            {
-                return compare(Long.valueOf(mapOne.get(INVOKE_RESULT).toString()), Long.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
-            }
-            if (mapOne.get(FIELD_CLASS).equals(DATE_CLASS))
-            {
-                return compare(DATE_FORMAT.parse(DATE_FORMAT.format(mapOne.get(INVOKE_RESULT))), DATE_FORMAT.parse(DATE_FORMAT.format(mapTwo.get(INVOKE_RESULT))), direction);
-            }
-            else
-            {
-                throw new SortException("Can not solve this attribute's type!");
+                Object obj = field.get(param);
+
+                if (obj == null)
+                {
+                    throw new NullPointerException("Such field is null!");
+                }
+
+                //存入字段类名
+                map.put(FIELD_CLASS, obj.getClass().getName());
+                //存入字段
+                map.put(INVOKE_RESULT, obj);
+
+                return map;
             }
         }
-        catch (InvocationTargetException | IllegalAccessException | ParseException e)
-        {
-            e.printStackTrace();
-        }
 
-        return 0;
+        throw new SortException(String.format("\"%s\"--No such field in this param!", fieldName));
     }
 
     //通过类里面的get方法来获取这个字段
-    private static Map<String, Object> doFieldGetMethod(Object param, String fieldName) throws InvocationTargetException, IllegalAccessException, NullPointerException
+    private static Map<String, Object> doFieldGetMethod(Object param, String fieldName) throws InvocationTargetException, IllegalAccessException, NullPointerException, SortException
     {
         Map<String, Object> map = new HashMap<>();
 
@@ -128,7 +152,7 @@ public class SortUtil
             }
         }
 
-        return map;
+        throw new SortException(String.format("\"%s\"--No such field in this param!", fieldName));
     }
 
     //对不同的类型的字段调用不同的方法

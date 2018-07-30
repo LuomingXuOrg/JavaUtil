@@ -23,7 +23,7 @@ public class Main
 
         Date date = new Date();
         System.err.println(date.getClass().getName());
-        System.err.println("now : "+new Date(System.currentTimeMillis()));
+        System.err.println("now : " + new Date(System.currentTimeMillis()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < 20; i++)
         {
@@ -38,6 +38,7 @@ public class Main
         System.err.println("-------------normal-------------");
         testModels.forEach(System.err::println);
         System.err.println("-------------after-------------");
-        System.err.println(ListPageHelperUtil.doPage(new PageRequest(3, 7, new Sort("intTemp", Sort.Direction.DESC)), testModels));
+        System.err.println(ListPageHelperUtil.doPage(new PageRequest(3, 7, new Sort("intTemp", Sort.Direction.ASC)), testModels));
+        testModels.forEach(System.err::println);
     }
 }
