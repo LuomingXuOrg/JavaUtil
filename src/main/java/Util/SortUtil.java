@@ -25,7 +25,7 @@ public class SortUtil
     //返回的字段的类名
     private static final String FIELD_CLASS = "fieldClass";
     //返回的字段
-    private static final String INVOKE_RESULT = "invokeResult";
+    private static final String FIELD_OBJECT = "fieldObject";
 
     //定义了一般需要进行排序的类名
     private static final String INTEGER_CLASS = "java.lang.Integer";
@@ -72,19 +72,19 @@ public class SortUtil
         //判断获取的类名是哪个类
         if (mapOne.get(FIELD_CLASS).equals(INTEGER_CLASS))
         {
-            return compare(Integer.parseInt(mapOne.get(INVOKE_RESULT).toString()), Integer.parseInt(mapTwo.get(INVOKE_RESULT).toString()), direction);
+            return compare(Integer.parseInt(mapOne.get(FIELD_OBJECT).toString()), Integer.parseInt(mapTwo.get(FIELD_OBJECT).toString()), direction);
         }
         if (mapOne.get(FIELD_CLASS).equals(DOUBLE_CLASS))
         {
-            return compare(Double.valueOf(mapOne.get(INVOKE_RESULT).toString()), Double.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
+            return compare(Double.valueOf(mapOne.get(FIELD_OBJECT).toString()), Double.valueOf(mapTwo.get(FIELD_OBJECT).toString()), direction);
         }
         if (mapOne.get(FIELD_CLASS).equals(LONG_CLASS))
         {
-            return compare(Long.valueOf(mapOne.get(INVOKE_RESULT).toString()), Long.valueOf(mapTwo.get(INVOKE_RESULT).toString()), direction);
+            return compare(Long.valueOf(mapOne.get(FIELD_OBJECT).toString()), Long.valueOf(mapTwo.get(FIELD_OBJECT).toString()), direction);
         }
         if (mapOne.get(FIELD_CLASS).equals(DATE_CLASS))
         {
-            return compare(DATE_FORMAT.parse(DATE_FORMAT.format(mapOne.get(INVOKE_RESULT))), DATE_FORMAT.parse(DATE_FORMAT.format(mapTwo.get(INVOKE_RESULT))), direction);
+            return compare(DATE_FORMAT.parse(DATE_FORMAT.format(mapOne.get(FIELD_OBJECT))), DATE_FORMAT.parse(DATE_FORMAT.format(mapTwo.get(FIELD_OBJECT))), direction);
         }
         else
         {
@@ -116,7 +116,7 @@ public class SortUtil
                 //存入字段类名
                 map.put(FIELD_CLASS, obj.getClass().getName());
                 //存入字段
-                map.put(INVOKE_RESULT, obj);
+                map.put(FIELD_OBJECT, obj);
 
                 return map;
             }
@@ -146,7 +146,7 @@ public class SortUtil
                 //存入字段类名
                 map.put(FIELD_CLASS, obj.getClass().getName());
                 //存入字段
-                map.put(INVOKE_RESULT, obj);
+                map.put(FIELD_OBJECT, obj);
 
                 return map; //找到get方法直接return, 不再循环
             }
