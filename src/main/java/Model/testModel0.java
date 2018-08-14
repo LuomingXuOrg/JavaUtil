@@ -2,27 +2,18 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : testModel.java
- * CreateTime: 2018/07/26 14:46:31
- * LastModifiedDate : 18-7-26 下午2:46
+ * File Name : testModel0.java
+ * CreateTime: 2018/08/14 10:45:48
+ * LastModifiedDate : 18-8-14 上午10:45
  */
 
 package Model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class testModel
+public class testModel0
 {
-    public testModel(){}
-
-    public testModel(Long longTemp, Double doubleTemp)
-    {
-        this.longTemp = longTemp;
-        this.doubleTemp = doubleTemp;
-    }
-
-    //private Integer intTemp;
+    private Integer intTemp;
     private Date dateTemp;
     private Long longTemp;
     private Double doubleTemp;
@@ -58,16 +49,15 @@ public class testModel
     private Integer q29;
     private Integer q30;
 
+    public Integer getIntTemp()
+    {
+        return intTemp;
+    }
 
-//    public Integer getIntTemp()
-//    {
-//        return intTemp;
-//    }
-//
-//    public void setIntTemp(Integer intTemp)
-//    {
-//        this.intTemp = intTemp;
-//    }
+    public void setIntTemp(Integer intTemp)
+    {
+        this.intTemp = intTemp;
+    }
 
     public Date getDateTemp()
     {
@@ -412,12 +402,12 @@ public class testModel
     @Override
     public String toString()
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        return "testModel{" +
-//                "intTemp=" + intTemp +
+        return "testModel0{" +
+                "intTemp=" + intTemp +
                 ", dateTemp=" + dateTemp +
                 ", longTemp=" + longTemp +
                 ", doubleTemp=" + doubleTemp +
+                ", testModelTemp=" + testModelTemp +
                 '}';
     }
 }

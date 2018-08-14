@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : ListPageHelperUtil.java
+ * File Name : ListPageHelper.java
  * CreateTime: 2018/07/22 18:43:55
  * LastModifiedDate : 18-7-22 下午6:36
  */
@@ -15,7 +15,7 @@ import Exception.SortException;
 
 import java.util.*;
 
-public class ListPageHelperUtil
+public class ListPageHelper
 {
     //设置最大的size和page, 可以修改
     private final static Integer maxSize = 50;
