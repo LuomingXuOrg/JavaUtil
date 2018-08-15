@@ -4,14 +4,13 @@
  * Project Name : OwnJavaUtil
  * File Name : ConvertorHelper.java
  * CreateTime: 2018/08/14 10:44:58
- * LastModifiedDate : 18-8-14 上午10:44
+ * LastModifiedDate : 18-8-15 下午12:56
  */
 
 package Util;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ConvertorHelper
 {
@@ -41,10 +40,7 @@ public class ConvertorHelper
                     }
                 }
             }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            catch (Exception e) { e.printStackTrace(); }
         }
 
         return destin;
@@ -54,20 +50,18 @@ public class ConvertorHelper
     {
         if (source.size() == 0) { return null; }
 
-        List<T> lists = new ArrayList<>();
+        List<T> lists = new LinkedList<>();
+        Class clazz = destin.getClass();
 
         try
         {
             for (S item : source)
             {
-                T temp = convert(destin, item);
-                if (temp != null) { lists.add(temp); }
+                T temp = (T) clazz.newInstance();
+                lists.add(convert(temp, item));
             }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        catch (Exception e) { e.printStackTrace(); }
 
         return lists;
     }
