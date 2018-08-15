@@ -22,7 +22,7 @@ public class testModel
         this.doubleTemp = doubleTemp;
     }
 
-    //private Integer intTemp;
+    private Double intTemp;
     private Date dateTemp;
     private Long longTemp;
     private Double doubleTemp;
@@ -59,15 +59,15 @@ public class testModel
     private Integer q30;
 
 
-//    public Integer getIntTemp()
-//    {
-//        return intTemp;
-//    }
-//
-//    public void setIntTemp(Integer intTemp)
-//    {
-//        this.intTemp = intTemp;
-//    }
+    public Double getIntTemp()
+    {
+        return intTemp;
+    }
+
+    public void setIntTemp(Double intTemp)
+    {
+        this.intTemp = intTemp;
+    }
 
     public Date getDateTemp()
     {

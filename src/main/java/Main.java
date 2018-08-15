@@ -22,11 +22,11 @@ public class Main
         System.err.println(date.getClass().getName());
         System.err.println("now : " + new Date(System.currentTimeMillis()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 5; i++)
         {
             temp = new testModel();
             temp.setDoubleTemp(rd.nextDouble());
-            //temp.setIntTemp(rd.nextInt());
+            temp.setIntTemp(rd.nextDouble()*100);
             temp.setLongTemp(rd.nextLong());
             temp.setDateTemp(new Date(System.currentTimeMillis() + rd.nextInt()));
             temp.setTestModelTemp(new testModel(123L, 12.3));
@@ -39,7 +39,7 @@ public class Main
 //        testModels.forEach(System.err::println);
 
         int count = 0;
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 1; i++)
         {
             long s = System.currentTimeMillis();
             List<testModel0> model0s = ConvertorHelper.convertList(new testModel0(), testModels);

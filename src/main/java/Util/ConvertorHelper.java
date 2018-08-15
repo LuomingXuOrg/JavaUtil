@@ -10,6 +10,8 @@
 package Util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ConvertorHelper
@@ -35,8 +37,16 @@ public class ConvertorHelper
 
                     if (fieldDestin.getName().equals(fieldSource.getName()))
                     {
-                        fieldDestin.set(destin, fieldSource.get(source));
-                        break;
+                        if (fieldDestin.getType().equals(fieldSource.getType()))
+                        {
+                            fieldDestin.set(destin, fieldSource.get(source));
+                            break;
+                        }
+                        else
+                        {
+                            fieldDestin.set(destin, typeConvert(fieldDestin.getType(), fieldSource.get(source)));
+                            break;
+                        }
                     }
                 }
             }
@@ -64,5 +74,56 @@ public class ConvertorHelper
         catch (Exception e) { e.printStackTrace(); }
 
         return lists;
+    }
+
+    private static <T> Object typeConvert(Class<T> destinClass, Object sourceObj) throws Exception
+    {
+        try
+        {
+            if (destinClass.equals(Integer.class))
+            {
+                Method method = sourceObj.getClass().getMethod("intValue");
+                return method.invoke(sourceObj);
+            }
+            if (destinClass.equals(Double.class))
+            {
+                Method method = sourceObj.getClass().getMethod("doubleValue");
+                return method.invoke(sourceObj);
+            }
+            if (destinClass.equals(Long.class))
+            {
+                Method method = sourceObj.getClass().getMethod("longValue");
+                return method.invoke(sourceObj);
+            }
+            if (destinClass.equals(Float.class))
+            {
+                Method method = sourceObj.getClass().getMethod("floatValue");
+                return method.invoke(sourceObj);
+            }
+            if (destinClass.equals(Short.class))
+            {
+                Method method = sourceObj.getClass().getMethod("shortValue");
+                return method.invoke(sourceObj);
+            }
+            if (destinClass.equals(BigDecimal.class))
+            {
+                if (sourceObj.getClass().equals(Double.class))
+                {
+                    Method method = destinClass.getMethod("valueOf", double.class);
+                    return method.invoke(null, sourceObj);
+                }
+                if (sourceObj.getClass().equals(Long.class))
+                {
+                    Method method = destinClass.getMethod("valueOf", long.class);
+                    return method.invoke(null, sourceObj);
+                }
+            }
+
+            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
+        }
+        catch (Exception e)
+        {
+            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
+        }
     }
 }
