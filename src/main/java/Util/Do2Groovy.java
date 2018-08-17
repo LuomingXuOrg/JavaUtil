@@ -162,15 +162,15 @@ public class Do2Groovy
             //获取jdbcType
             String type = getJdbcType(field);
             //添加行. remark需要手动添加
-            sb.append(String.format("column(name: '%s', type: '%s', remark: '')\n", columnName, type));
+            sb.append(String.format("column(name: '%s', type: '%s', remarks: '')\n", columnName, type));
         }
 
         //必须有的行
-        sb.append("column(name: \"created_by\", type: \"BIGINT\", defaultValue: \"0\", remark: '创建人')\n");
-        sb.append("column(name: \"creation_date\", type: \"DATETIME not null\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remark: '创建时间')\n");
-        sb.append("column(name: \"last_updated_by\", type: \"BIGINT\", defaultValue: \"0\", remark: '修改人')\n");
-        sb.append("column(name: \"last_update_date\", type: \"DATETIME not null on update current_timestamp\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remark: '最后修改时间')\n");
-        sb.append("column(name: \"object_version_number\", type: \"BIGINT\", defaultValue: \"1\", remark: '版本号')\n");
+        sb.append("column(name: \"created_by\", type: \"BIGINT\", defaultValue: \"0\", remarks: '创建人')\n");
+        sb.append("column(name: \"creation_date\", type: \"DATETIME not null\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remarks: '创建时间')\n");
+        sb.append("column(name: \"last_updated_by\", type: \"BIGINT\", defaultValue: \"0\", remarks: '修改人')\n");
+        sb.append("column(name: \"last_update_date\", type: \"DATETIME not null on update current_timestamp\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remarks: '最后修改时间')\n");
+        sb.append("column(name: \"object_version_number\", type: \"BIGINT\", defaultValue: \"1\", remarks: '版本号')\n");
 
         sb.append("}\n");
         sb.append("}\n");
