@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : ConvertorHelper.java
+ * File Name : ConverterHelper.java
  * CreateTime: 2018/08/14 10:44:58
  * LastModifiedDate : 18-8-15 下午12:56
  */
@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class ConvertorHelper
+public class ConverterHelper
 {
     public static <T> T convert(T destin, Object source)
     {

@@ -1,7 +1,7 @@
 
 import Model.testModel;
 import Model.testModel0;
-import Util.ConvertorHelper;
+import Util.ConverterHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class Main
         for (int i = 0; i < 1; i++)
         {
             long s = System.currentTimeMillis();
-            List<testModel0> model0s = ConvertorHelper.convertList(new testModel0(), testModels);
+            List<testModel0> model0s = ConverterHelper.convertList(new testModel0(), testModels);
             long f = System.currentTimeMillis();
             count += (f - s);
             model0s.forEach(System.out::println);
