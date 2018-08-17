@@ -21,5 +21,11 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
+        <!-- 驼峰下划线转化 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>26.0-jre</version>
+        </dependency>
     </dependencies>
 </project>
