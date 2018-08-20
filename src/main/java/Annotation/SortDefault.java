@@ -20,7 +20,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SortDefault
 {
-    String value() default "id";
+    String fieldName() default "id";
     Sort.Direction Direction() default Sort.Direction.DESC;
 }
 

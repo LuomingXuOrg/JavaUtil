@@ -11,12 +11,15 @@ package Model;
 
 import Annotation.SortDefault;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+
 /**
  * 定义分页需求的类
  */
 public class PageRequest
 {
-    public PageRequest(){}
+    public PageRequest() {}
 
     public PageRequest(Integer size, Integer page, Sort sort)
     {
@@ -31,7 +34,7 @@ public class PageRequest
     //第几页
     private Integer page = 0;
 
-    @SortDefault
+    @SortDefault(fieldName = "123", Direction = Sort.Direction.DESC)
     private Sort sort;
 
     public Integer getSize()
@@ -56,6 +59,23 @@ public class PageRequest
 
     public Sort getSort()
     {
+        if (sort == null)
+        {
+            try
+            {
+                Field field = this.getClass().getDeclaredField("sort");
+                SortDefault temp = field.getAnnotation(SortDefault.class);
+                if (temp != null)
+                {
+                    sort = new Sort(temp.fieldName(), temp.Direction());
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         return sort;
     }
 

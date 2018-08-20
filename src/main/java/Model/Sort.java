@@ -60,4 +60,13 @@ public class Sort
     {
         this.fieldName = fieldName.equals("") ? null : fieldName;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Sort{" +
+                "direction=" + direction +
+                ", fieldName='" + fieldName + '\'' +
+                '}';
+    }
 }
