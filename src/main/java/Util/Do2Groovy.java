@@ -185,7 +185,8 @@ public class Do2Groovy
 
         if (clazz.equals(String.class))
         {
-            return "varchar";
+            //默认需要长度
+            return "varchar(50)";
         }
         if (clazz.equals(Long.class))
         {

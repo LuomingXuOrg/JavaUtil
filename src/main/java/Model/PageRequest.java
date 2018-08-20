@@ -11,6 +11,9 @@ package Model;
 
 import Annotation.SortDefault;
 
+/**
+ * 定义分页需求的类
+ */
 public class PageRequest
 {
     public PageRequest(){}

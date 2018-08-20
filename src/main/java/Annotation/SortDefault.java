@@ -21,6 +21,6 @@ import static java.lang.annotation.ElementType.*;
 public @interface SortDefault
 {
     String value() default "id";
-    Sort.Direction Direction() default Sort.Direction.ASC;
+    Sort.Direction Direction() default Sort.Direction.DESC;
 }
 

@@ -9,6 +9,9 @@
 
 package Model;
 
+/**
+ * 排序的定义类
+ */
 public class Sort
 {
     public Sort() {}
@@ -30,8 +33,10 @@ public class Sort
         ASC
     }
 
-    //正序倒序
-    private Direction direction;
+    /**
+     * 排序方式, 默认倒序
+     */
+    private Direction direction = Direction.DESC;
 
     //需要进行排序的字段名
     private String fieldName;

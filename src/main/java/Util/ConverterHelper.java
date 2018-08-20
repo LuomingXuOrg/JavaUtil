@@ -44,8 +44,17 @@ public class ConverterHelper
                         }
                         else
                         {
-                            fieldDestin.set(destin, typeConvert(fieldDestin.getType(), fieldSource.get(source)));
-                            break;
+                            //同名属性, 不同类型, 尝试进行类型转化
+                            try
+                            {
+                                fieldDestin.set(destin, typeConvert(fieldDestin.getType(), fieldSource.get(source)));
+                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                //转化失败的话, 设值为null
+                                fieldDestin.set(destin, null);
+                            }
                         }
                     }
                 }
@@ -80,7 +89,7 @@ public class ConverterHelper
     /**
      * 获取类的所有属性, 包含父类的属性
      *
-     * @param clazz 类
+     * @param clazz 需要获取Field[]的类
      * @return Field[]
      */
     private static Field[] getAllFields(Class<?> clazz)
@@ -105,7 +114,16 @@ public class ConverterHelper
 
         return temp;
     }
-    
+
+    /**
+     * 在转化的时候可能需要的一些类型转化的方法
+     *
+     * @param destinClass 目标类型
+     * @param sourceObj   需要转化的对象
+     * @param <T>         目标类型
+     * @return 转化之后的field的对象
+     * @throws Exception 无法进行类型转化异常
+     */
     private static <T> Object typeConvert(Class<T> destinClass, Object sourceObj) throws Exception
     {
         try

@@ -15,6 +15,9 @@ import Exception.SortException;
 
 import java.util.*;
 
+/**
+ * 对list进行分页操作
+ */
 public class ListPageHelper
 {
     //设置最大的size和page, 可以修改

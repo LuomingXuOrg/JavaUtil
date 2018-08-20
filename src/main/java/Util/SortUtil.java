@@ -33,7 +33,14 @@ public class SortUtil
     private static final String DOUBLE_CLASS = "java.lang.Double";
     private static final String DATE_CLASS = "java.util.Date";
 
-    //给外部调用的排序的方法
+    /**
+     * 给外部调用的排序的方法
+     *
+     * @param sort
+     * @param paramLists
+     * @param <T>
+     * @throws SortException
+     */
     public static <T> void doSort(Sort sort, List<T> paramLists) throws SortException
     {
         //判断是否选择了需要排序的fieldName
@@ -57,7 +64,16 @@ public class SortUtil
         });
     }
 
-    //给doSort方法调用的比较方法
+    /**
+     * 给doSort方法调用的比较方法
+     *
+     * @param paramOne
+     * @param paramTwo
+     * @param fieldName
+     * @param direction
+     * @return
+     * @throws Exception
+     */
     private static Integer compare(Object paramOne, Object paramTwo, String fieldName, Sort.Direction direction) throws Exception
     {
         //如果两个类的类名不一样, 抛出异常
@@ -92,7 +108,15 @@ public class SortUtil
         }
     }
 
-    //直接通过反射来获取这个字段的值和类名
+    /**
+     * 直接通过反射来获取这个字段的值和类名--比较快
+     *
+     * @param param
+     * @param fieldName
+     * @return
+     * @throws IllegalAccessException
+     * @throws SortException
+     */
     private static Map<String, Object> getFieldByField(Object param, String fieldName) throws IllegalAccessException, SortException
     {
         Map<String, Object> map = new HashMap<>();
