@@ -21,9 +21,9 @@ public class ConverterHelper
         if (source == null) { return null; }
 
         Class clazz = source.getClass();
-        Field[] fieldsSource = clazz.getDeclaredFields();
+        Field[] fieldsSource = getAllFields(clazz);
         clazz = destin.getClass();
-        Field[] fieldsDestin = clazz.getDeclaredFields();
+        Field[] fieldsDestin = getAllFields(clazz);
 
         for (Field fieldSource : fieldsSource)
         {
@@ -56,6 +56,7 @@ public class ConverterHelper
         return destin;
     }
 
+    @SuppressWarnings("unchecked")
     public static <S, T> List<T> convertList(T destin, List<S> source)
     {
         if (source.size() == 0) { return null; }
@@ -76,6 +77,35 @@ public class ConverterHelper
         return lists;
     }
 
+    /**
+     * 获取类的所有属性, 包含父类的属性
+     *
+     * @param clazz 类
+     * @return Field[]
+     */
+    private static Field[] getAllFields(Class<?> clazz)
+    {
+        List<Field> fieldList = new ArrayList<>();
+
+        for (; clazz != Object.class; clazz = clazz.getSuperclass())
+        {
+            try
+            {
+                fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+            }
+            catch (Exception e)
+            {
+                //这里甚么都不能抛出去。
+                //如果这里的异常打印或者往外抛，则就不会进入
+            }
+        }
+
+        Field[] temp = new Field[fieldList.size()];
+        fieldList.toArray(temp);
+
+        return temp;
+    }
+    
     private static <T> Object typeConvert(Class<T> destinClass, Object sourceObj) throws Exception
     {
         try
