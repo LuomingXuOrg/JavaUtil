@@ -1,11 +1,6 @@
 #Luoming Xu ignored files
 package.json
-node_modules/conventional-commit-types/
-node_modules/cz-conventional-changelog/
-node_modules/lodash.map/
-node_modules/longest/
-node_modules/right-pad/
-node_modules/word-wrap/
+node_modules/
 package-lock.json
 #Luoming Xu ignored files END
 /.idea/
@@ -13,3 +8,6 @@ package-lock.json
 *.jar
 target/
 /src/test/
+/src/main/java/Main.java
+/src/main/java/Model/testModel.java
+/src/main/java/Model/testModel0.java
