@@ -11,6 +11,7 @@ package Util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -27,12 +28,20 @@ public class ConverterHelper
 
         for (Field fieldSource : fieldsSource)
         {
+            //如果这个field是静态的, 不与目标类型进行匹配
+            if (isStatic(fieldSource))
+            { continue; }
+
             fieldSource.setAccessible(true);
 
             try
             {
                 for (Field fieldDestin : fieldsDestin)
                 {
+                    //如果这个field是静态的, 不匹配
+                    if (isStatic(fieldDestin))
+                    { break; }
+
                     fieldDestin.setAccessible(true);
 
                     if (fieldDestin.getName().equals(fieldSource.getName()))
@@ -40,7 +49,6 @@ public class ConverterHelper
                         if (fieldDestin.getType().equals(fieldSource.getType()))
                         {
                             fieldDestin.set(destin, fieldSource.get(source));
-                            break;
                         }
                         else
                         {
@@ -48,7 +56,6 @@ public class ConverterHelper
                             try
                             {
                                 fieldDestin.set(destin, typeConvert(fieldDestin.getType(), fieldSource.get(source)));
-                                break;
                             }
                             catch (Exception e)
                             {
@@ -56,6 +63,8 @@ public class ConverterHelper
                                 fieldDestin.set(destin, null);
                             }
                         }
+
+                        break;
                     }
                 }
             }
@@ -104,7 +113,7 @@ public class ConverterHelper
             }
             catch (Exception e)
             {
-                //这里甚么都不能抛出去。
+                //这里什么都不能抛出去.
                 //如果这里的异常打印或者往外抛，则就不会进入
             }
         }
@@ -157,7 +166,16 @@ public class ConverterHelper
             {
                 if (sourceObj.getClass().equals(Double.class))
                 {
+                    /*
+                     * 通过方法名, 和这个方法需要的参数类型,
+                     * 来获取方法
+                     */
                     Method method = destinClass.getMethod("valueOf", double.class);
+                    /*
+                     * 调用obj这个类下面的这个方法,
+                     * 由于这个是静态的, 所以不要new一个对象出来
+                     * 后面的Object...就是这个方法的参数
+                     */
                     return method.invoke(null, sourceObj);
                 }
                 if (sourceObj.getClass().equals(Long.class))
@@ -173,5 +191,13 @@ public class ConverterHelper
         {
             throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
         }
+    }
+
+    private static Boolean isStatic(Field field)
+    {
+        /*
+         * Modifier这个类就是用来判断public, private, abstract之类的信息的
+         */
+        return Modifier.isStatic(field.getModifiers());
     }
 }
