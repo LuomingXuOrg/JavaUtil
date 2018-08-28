@@ -1,21 +1,33 @@
 /*
- * Copyright (c) 2018
+ * Copyright 2018-2018 LuomingXuOrg
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  * Author : Luoming Xu
- * Project Name : OwnJavaUtil
- * File Name : ConverterHelper.java
- * CreateTime: 2018/08/14 10:44:58
- * LastModifiedDate : 18-8-15 下午12:56
+ * File Name : EntityConverter.java
+ * Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package Util;
+package com.github.luomingxuorg.javaUtil.Util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-public class ConverterHelper
+public class EntityConverter
 {
     public static <T> T convert(T destin, Object source)
     {
@@ -55,7 +67,7 @@ public class ConverterHelper
                             //同名属性, 不同类型, 尝试进行类型转化
                             try
                             {
-                                fieldDestin.set(destin, typeConvert(fieldDestin.getType(), fieldSource.get(source)));
+                                fieldDestin.set(destin, FieldUtil.typeConvert(fieldDestin.getType(), fieldSource.get(source)));
                             }
                             catch (Exception e)
                             {
@@ -122,75 +134,6 @@ public class ConverterHelper
         fieldList.toArray(temp);
 
         return temp;
-    }
-
-    /**
-     * 在转化的时候可能需要的一些类型转化的方法
-     *
-     * @param destinClass 目标类型
-     * @param sourceObj   需要转化的对象
-     * @param <T>         目标类型
-     * @return 转化之后的field的对象
-     * @throws Exception 无法进行类型转化异常
-     */
-    private static <T> Object typeConvert(Class<T> destinClass, Object sourceObj) throws Exception
-    {
-        try
-        {
-            if (destinClass.equals(Integer.class))
-            {
-                Method method = sourceObj.getClass().getMethod("intValue");
-                return method.invoke(sourceObj);
-            }
-            if (destinClass.equals(Double.class))
-            {
-                Method method = sourceObj.getClass().getMethod("doubleValue");
-                return method.invoke(sourceObj);
-            }
-            if (destinClass.equals(Long.class))
-            {
-                Method method = sourceObj.getClass().getMethod("longValue");
-                return method.invoke(sourceObj);
-            }
-            if (destinClass.equals(Float.class))
-            {
-                Method method = sourceObj.getClass().getMethod("floatValue");
-                return method.invoke(sourceObj);
-            }
-            if (destinClass.equals(Short.class))
-            {
-                Method method = sourceObj.getClass().getMethod("shortValue");
-                return method.invoke(sourceObj);
-            }
-            if (destinClass.equals(BigDecimal.class))
-            {
-                if (sourceObj.getClass().equals(Double.class))
-                {
-                    /*
-                     * 通过方法名, 和这个方法需要的参数类型,
-                     * 来获取方法
-                     */
-                    Method method = destinClass.getMethod("valueOf", double.class);
-                    /*
-                     * 调用obj这个类下面的这个方法,
-                     * 由于这个是静态的, 所以不要new一个对象出来
-                     * 后面的Object...就是这个方法的参数
-                     */
-                    return method.invoke(null, sourceObj);
-                }
-                if (sourceObj.getClass().equals(Long.class))
-                {
-                    Method method = destinClass.getMethod("valueOf", long.class);
-                    return method.invoke(null, sourceObj);
-                }
-            }
-
-            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
-        }
-        catch (Exception e)
-        {
-            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
-        }
     }
 
     private static Boolean isStatic(Field field)

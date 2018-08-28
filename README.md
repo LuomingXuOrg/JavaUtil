@@ -15,7 +15,7 @@ java工具类
 ##### 4, 从do生成groovy文件
 [groovy][]
 
-[sort]:src/main/java/Util/SortUtil.java "排序"
-[page]:src/main/java/Util/ListPageHelper.java "分页"
-[converter]:src/main/java/Util/ConverterHelper.java "转化"
-[groovy]:src/main/java/Util/Do2Groovy.java "groovy文件"
+[sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
+[page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
+[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ConverterHelper.java "转化"
+[groovy]:src/main/java/com/github/luomingxuorg/javaUtil/Util/Do2Groovy.java "groovy文件"
