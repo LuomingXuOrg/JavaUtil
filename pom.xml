@@ -6,7 +6,7 @@
 
     <groupId>com.github.luomingxuorg</groupId>
     <artifactId>JavaUtil</artifactId>
-    <version>1.0.1</version>
+    <version>2.0</version>
     <!--发布到中央仓库需要的东西-->
     <packaging>jar</packaging>
     <name>JavaUtil</name>
