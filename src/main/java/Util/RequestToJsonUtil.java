@@ -7,14 +7,7 @@
  * LastModifiedDate : 18-7-22 下午6:43
  */
 
-package Util;/*
- * Copyright (c) 2018
- * Author : Luoming Xu
- * Project Name : OwnJavaUtil
- * File Name : Util.RequestToJsonUtil.java
- * CreateTime: 2018/07/22 18:31:41
- * LastModifiedDate : 18-7-20 下午12:42
- */
+package Util;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -149,7 +149,17 @@ public class SortUtil
         throw new SortException(String.format("\"%s\"--No such field in this param!", fieldName));
     }
 
-    //通过类里面的get方法来获取这个字段
+    /**
+     * 通过类里面的get方法来获取这个字段
+     *
+     * @param param
+     * @param fieldName
+     * @return
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws NullPointerException
+     * @throws SortException
+     */
     private static Map<String, Object> doFieldGetMethod(Object param, String fieldName) throws InvocationTargetException, IllegalAccessException, NullPointerException, SortException
     {
         Map<String, Object> map = new HashMap<>();

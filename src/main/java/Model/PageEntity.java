@@ -2,7 +2,7 @@
  * Copyright (c) 2018
  * Author : Luoming Xu
  * Project Name : OwnJavaUtil
- * File Name : PageModel.java
+ * File Name : PageEntity.java
  * CreateTime: 2018/07/22 18:44:22
  * LastModifiedDate : 18-7-22 下午6:33
  */
@@ -11,11 +11,11 @@ package Model;
 
 import java.util.List;
 
-public class PageModel<T>
+public class PageEntity<T>
 {
-    public PageModel() {}
+    public PageEntity() {}
 
-    public PageModel(Integer totalPages, Integer totalElements, Integer pageOfElements, Integer size, Integer page, List<T> content, boolean empty)
+    public PageEntity(Integer totalPages, Integer totalElements, Integer pageOfElements, Integer size, Integer page, List<T> content, boolean empty)
     {
         this.totalPages = totalPages;
         this.totalElements = totalElements;
@@ -33,7 +33,7 @@ public class PageModel<T>
     /**
      * 总数据数
      */
-    private Integer totalElements;//
+    private Integer totalElements;
     /**
      * 当前页数据数
      */
@@ -41,7 +41,7 @@ public class PageModel<T>
     /**
      * 页内数据默认大小
      */
-    private Integer size;//
+    private Integer size;
     /**
      * 当前页码--从1开始
      */
@@ -114,10 +114,6 @@ public class PageModel<T>
 
     public List<T> getContent()
     {
-        if (content == null)
-        {
-            return null;
-        }
         return content;
     }
 
@@ -155,7 +151,7 @@ public class PageModel<T>
 
         temp.append("]");
 
-        return "PageModel{" +
+        return "PageEntity{" +
                 "totalPages=" + totalPages +
                 ", totalElements=" + totalElements +
                 ", pageOfElements=" + pageOfElements +

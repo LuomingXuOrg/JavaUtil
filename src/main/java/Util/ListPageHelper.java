@@ -9,7 +9,7 @@
 
 package Util;
 
-import Model.PageModel;
+import Model.PageEntity;
 import Model.PageRequest;
 import Exception.SortException;
 
@@ -21,8 +21,8 @@ import java.util.*;
 public class ListPageHelper
 {
     //设置最大的size和page, 可以修改
-    private final static Integer maxSize = 50;
-    private final static Integer maxPage = 50;
+    private static Integer maxSize = 100;
+    private static Integer maxPage = 100;
 
     /**
      * 对传来的List进行分页的操作
@@ -30,27 +30,29 @@ public class ListPageHelper
      * @param pageRequest 对分页的需求类
      * @param paramLists  需要分页的List
      * @param <T>         List的Model
-     * @return PageModel
+     * @return PageEntity
      */
-    public static <T> PageModel<T> doPage(PageRequest pageRequest, List<T> paramLists)
+    public static <T> PageEntity<T> doPage(PageRequest pageRequest, List<T> paramLists, Integer... param)
     {
+        setMaxSizePage(param);
+
         //内部需要的类
         List<T> pagedLists = new ArrayList<>();
-        PageModel<T> pageModel = new PageModel<>();
+        PageEntity<T> pageEntity = new PageEntity<>();
 
         //对paramLists进行判断
         if (paramLists == null || paramLists.size() < 1)
         {
             System.err.println("No data in lists. ");
-            pageModel.setEmpty(true);
-            return pageModel;
+            pageEntity.setEmpty(true);
+            return pageEntity;
         }
         //对pageRequest进行判断
         if (pageRequest == null || (pageRequest.getSize() == null | pageRequest.getPage() == null))
         {
             System.err.println("No data in pageRequest. ");
-            pageModel.setEmpty(true);
-            return pageModel;
+            pageEntity.setEmpty(true);
+            return pageEntity;
         }
 
         //sort
@@ -77,11 +79,11 @@ public class ListPageHelper
         }
 
         //设置总数据数
-        pageModel.setTotalElements(paramLists.size());
+        pageEntity.setTotalElements(paramLists.size());
         //页内数据默认大小
-        pageModel.setSize(size);
+        pageEntity.setSize(size);
         //当前页码
-        pageModel.setPage(page);
+        pageEntity.setPage(page);
 
         //需要的数量大于总的数据量
         if (size >= paramLists.size())
@@ -89,12 +91,12 @@ public class ListPageHelper
             //且page > 1时, 就没有数据
             if (page > 1)
             {
-                pageModel.setEmpty(true);
-                return pageModel;
+                pageEntity.setEmpty(true);
+                return pageEntity;
             }
 
-            pageModel.setPageOfElements_Content_TotalPages(paramLists.size(), paramLists, 1);
-            return pageModel;
+            pageEntity.setPageOfElements_Content_TotalPages(paramLists.size(), paramLists, 1);
+            return pageEntity;
         }
 
         int count = 0;
@@ -113,19 +115,35 @@ public class ListPageHelper
             System.err.println(String.format("We count \'%s\' data in this page.", count));
             if (count == 0)
             {
-                pageModel.setEmpty(true);
-                pageModel.setTotalPages((paramLists.size() / size) + 1);
-                return pageModel;
+                pageEntity.setEmpty(true);
+                pageEntity.setTotalPages((paramLists.size() / size) + 1);
+                return pageEntity;
             }
             else
             {
-                pageModel.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
+                pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
             }
-            return pageModel;
+            return pageEntity;
         }
 
-        pageModel.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
+        pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
 
-        return pageModel;
+        return pageEntity;
+    }
+
+    /**
+     * set max size page
+     *
+     * @param param first is size, second is page
+     */
+    private static void setMaxSizePage(Integer... param)
+    {
+        Integer[] temp = param.clone();
+        try
+        {
+            maxSize = temp[0];
+            maxPage = temp[1];
+        }
+        catch(Exception e) { /*try set value*/}
     }
 }

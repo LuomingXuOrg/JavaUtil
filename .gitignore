@@ -8,6 +8,5 @@ package-lock.json
 *.jar
 target/
 /src/test/
-/src/main/java/Main.java
-/src/main/java/Model/testModel.java
-/src/main/java/Model/testModel0.java
+#test files are in this package
+/src/main/java/Test

@@ -6,7 +6,7 @@
 
     <groupId>com.github.luomingxuorg</groupId>
     <artifactId>JavaUtil</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <!--发布到中央仓库需要的东西-->
     <packaging>jar</packaging>
     <name>JavaUtil</name>
@@ -53,6 +53,9 @@
                         <configuration>
                             <source>8</source>
                             <target>8</target>
+                            <excludes>
+                                <exclude>**/Test/*</exclude>
+                            </excludes>
                         </configuration>
                     </plugin>
                     <!-- Source -->
@@ -103,6 +106,7 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!--deploy-->
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -120,6 +124,20 @@
     </profiles>
     <!--END-发布到中央仓库需要的东西-END-->
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/Test/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <!--json数据直接接收-->
         <dependency>
