@@ -6,7 +6,6 @@ package-lock.json
 /.idea/
 /target/
 *.jar
-target/
 /src/test/
 #test files are in this package
 /src/main/java/Test

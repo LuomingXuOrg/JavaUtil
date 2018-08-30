@@ -14,6 +14,11 @@ java工具类
 |entity之间的转化|[converter][]|
 |从do生成groovy文件|[groovy][]|
 
+#### Test, PR
+
+如果有测试的代码请新建"src/main/java/Test"目录, 在此目录下进行测试<br>
+此目录不会被提交到仓库, 以此保证目录的整洁
+
 #### maven dependency
 ```xml
 <dependency>
