@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7llsmbpr5nh8mapr?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg)
+[![image](https://img.shields.io/badge/maven-v2.0.1-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
