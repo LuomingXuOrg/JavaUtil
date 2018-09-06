@@ -89,7 +89,7 @@ public class EntityConverter
     @SuppressWarnings("unchecked")
     public static <S, T> List<T> convertList(T destin, List<S> source)
     {
-        if (source.size() == 0) { return null; }
+        if (source == null || source.size() < 1) { return null; }
 
         List<T> lists = new LinkedList<>();
         Class clazz = destin.getClass();

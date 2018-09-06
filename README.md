@@ -17,7 +17,7 @@ java工具类
 #### Test, PR
 
 如果有测试的代码请新建"src/main/java/Test"目录, 在此目录下进行测试<br>
-此目录不会被提交到仓库, 以此保证目录的整洁
+此目录不会被提交到仓库, 以保证目录的整洁
 
 #### maven dependency
 ```xml
