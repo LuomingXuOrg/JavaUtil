@@ -30,5 +30,5 @@ java工具类
 
 [sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
 [page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
-[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ConverterHelper.java "转化"
+[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/EntityConverter.java "转化"
 [groovy]:src/main/java/com/github/luomingxuorg/javaUtil/Util/Do2Groovy.java "groovy文件"
