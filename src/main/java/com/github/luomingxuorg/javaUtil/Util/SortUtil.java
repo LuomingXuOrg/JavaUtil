@@ -28,6 +28,18 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 对 {@link List}{@code <T>} 按照T中的某一个字段名进行排序
+ * <br>
+ * <font color="red">支持的字段类型: </font>
+ * <li>{@link Short}</li>
+ * <li>{@link Integer}</li>
+ * <li>{@link Long}</li>
+ * <li>{@link Float}</li>
+ * <li>{@link Double}</li>
+ * <li>{@link BigDecimal}</li>
+ * <li>{@link Date}</li>
+ */
 public class SortUtil
 {
     /**

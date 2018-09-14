@@ -27,6 +27,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
+/**
+ * 通过反射获取类的字段值
+ */
 public class FieldUtil
 {
 
