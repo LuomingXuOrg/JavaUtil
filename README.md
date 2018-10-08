@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7llsmbpr5nh8mapr?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.2.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg)
+[![image](https://img.shields.io/badge/maven-v2.3.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -13,7 +13,7 @@ java工具类
 |对list排序|[sort][]|
 |对list进行分页操作|[page][]|
 |entity之间的转化|[converter][]|
-|从do生成groovy文件|[groovy][]|
+|从sql生成框架需要的文件|[frameworkFile][]|
 
 #### Test, PR
 
@@ -34,4 +34,4 @@ java工具类
 [sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
 [page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
 [converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/EntityConverter.java "转化"
-[groovy]:src/main/java/com/github/luomingxuorg/javaUtil/Util/Do2Groovy.java "groovy文件"
+[frameworkFile]:src/main/java/com/github/luomingxuorg/javaUtil/Util/GenerateFrameworkFileBySQL.java "groovy文件"
