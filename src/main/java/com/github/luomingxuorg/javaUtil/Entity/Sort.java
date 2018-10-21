@@ -20,9 +20,12 @@
 
 package com.github.luomingxuorg.javaUtil.Entity;
 
+import lombok.Data;
+
 /**
  * 排序的定义类
  */
+@Data
 public class Sort
 {
     public Sort() {}
@@ -51,26 +54,6 @@ public class Sort
 
     //需要进行排序的字段名
     private String fieldName;
-
-    public Direction getDirection()
-    {
-        return direction;
-    }
-
-    public void setDirection(Direction direction)
-    {
-        this.direction = direction;
-    }
-
-    public String getFieldName()
-    {
-        return fieldName;
-    }
-
-    public void setFieldName(String fieldName)
-    {
-        this.fieldName = fieldName.equals("") ? null : fieldName;
-    }
 
     @Override
     public String toString()

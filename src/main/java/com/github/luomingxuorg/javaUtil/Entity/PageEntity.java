@@ -20,8 +20,11 @@
 
 package com.github.luomingxuorg.javaUtil.Entity;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class PageEntity<T>
 {
     public PageEntity() {}
@@ -71,76 +74,6 @@ public class PageEntity<T>
         this.pageOfElements = pageOfElements;
         this.content = content;
         this.totalPages = totalPages;
-    }
-
-    public Integer getTotalPages()
-    {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages)
-    {
-        this.totalPages = totalPages;
-    }
-
-    public Integer getTotalElements()
-    {
-        return totalElements;
-    }
-
-    public void setTotalElements(Integer totalElements)
-    {
-        this.totalElements = totalElements;
-    }
-
-    public Integer getPageOfElements()
-    {
-        return pageOfElements;
-    }
-
-    public void setPageOfElements(Integer pageOfElements)
-    {
-        this.pageOfElements = pageOfElements;
-    }
-
-    public Integer getSize()
-    {
-        return size;
-    }
-
-    public void setSize(Integer size)
-    {
-        this.size = size;
-    }
-
-    public Integer getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Integer page)
-    {
-        this.page = page;
-    }
-
-    public List<T> getContent()
-    {
-        return content;
-    }
-
-    public void setContent(List<T> content)
-    {
-        this.content = content;
-    }
-
-    public boolean isEmpty()
-    {
-        return empty;
-    }
-
-    public void setEmpty(boolean empty)
-    {
-        this.empty = empty;
     }
 
     @Override

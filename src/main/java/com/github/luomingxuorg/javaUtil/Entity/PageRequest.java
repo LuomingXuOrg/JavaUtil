@@ -21,12 +21,14 @@
 package com.github.luomingxuorg.javaUtil.Entity;
 
 import com.github.luomingxuorg.javaUtil.Annotation.SortDefault;
+import lombok.Data;
 
 import java.lang.reflect.Field;
 
 /**
  * 定义分页需求的类
  */
+@Data
 public class PageRequest
 {
     public PageRequest() {}
@@ -46,26 +48,6 @@ public class PageRequest
 
     @SortDefault(fieldName = "123", Direction = Sort.Direction.DESC)
     private Sort sort;
-
-    public Integer getSize()
-    {
-        return size;
-    }
-
-    public void setSize(Integer size)
-    {
-        this.size = size;
-    }
-
-    public Integer getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Integer page)
-    {
-        this.page = page;
-    }
 
     public Sort getSort()
     {
@@ -87,11 +69,6 @@ public class PageRequest
         }
 
         return sort;
-    }
-
-    public void setSort(Sort sort)
-    {
-        this.sort = sort;
     }
 
     @Override

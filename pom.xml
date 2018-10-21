@@ -6,7 +6,7 @@
 
     <groupId>com.github.luomingxuorg</groupId>
     <artifactId>JavaUtil</artifactId>
-    <version>2.3.0</version>
+    <version>2.3.1</version>
     <!--发布到中央仓库需要的东西-->
     <packaging>jar</packaging>
     <name>JavaUtil</name>
@@ -158,6 +158,25 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
+        </dependency>
+        <!--aop-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--由于有些util需要在spring里面使用, 需要spring的注解-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.1.1.RELEASE</version>
         </dependency>
     </dependencies>
 </project>
