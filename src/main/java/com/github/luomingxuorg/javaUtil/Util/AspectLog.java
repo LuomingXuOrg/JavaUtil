@@ -20,18 +20,21 @@
 
 package com.github.luomingxuorg.javaUtil.Util;
 
-import com.github.luomingxuorg.javaUtil.Entity.MethodCallAspectE;
+import com.github.luomingxuorg.javaUtil.Entity.MethodCallInfo;
+import com.github.luomingxuorg.javaUtil.Annotation.EnableAspectScope;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 要是方法被此类发现, 需要在方法前加{@link EnableAspectScope}
+ * </br>
  * 使用方式
  * <pre>
  * <code>@Bean</code>
@@ -40,18 +43,23 @@ import java.util.Map;
  *     return new AspectLog();
  * }
  * </pre>
+ * 可以继承此类, 来覆写{@link #before}, {@link #around}, {@link #after}
+ * </br>
+ * 具体如何使用请参照{@link Before}, {@link Around}, {@link After}
  */
 @Aspect
-@Component
 public class AspectLog
 {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    protected ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    protected Map<String, MethodCallAspectE> mapMethodCall = new HashMap<>();
+    private Map<String, MethodCallInfo> mapMethodCall = new HashMap<>();
 
-    @Pointcut("@annotation(com.github.luomingxuorg.javaUtil.Annotation.AspectScopeTrue)")
+    /**
+     * 利用注解, 来确定哪些方法需要进行调用
+     */
+    @Pointcut("@annotation(com.github.luomingxuorg.javaUtil.Annotation.EnableAspectScope)")
     private void methodAnnotationScope() {}
 
     @Before("methodAnnotationScope()")
@@ -63,9 +71,10 @@ public class AspectLog
     @Around("methodAnnotationScope()")
     protected Object around(ProceedingJoinPoint point) throws Throwable
     {
+        logger.info(StrInColor.yellow("----------------Around----------------"));
+
         Object result = point.proceed();
 
-        logger.info("--------------------------------------");
         //类名
         String className = point.getSignature().getDeclaringTypeName();
         //是class还是interface
@@ -77,26 +86,28 @@ public class AspectLog
         //参数
         Object[] args = point.getArgs();
 
-        logger.info(String.format("class/interface: %s(%s)", className, classType));
-        logger.info(String.format("method: %s", methodName));
-        logger.info(String.format("args size: %s", args.length));
+        logger.info(String.format("%s: %s(%s)", StrInColor.green("class/interface"), className, classType));
+        logger.info(String.format("%s: %s", StrInColor.green("method"), methodName));
+        logger.info(String.format("%s: %s", StrInColor.green("args size"), args.length));
         for (Object item : args)
         {
-            logger.info(String.format("\ttype: %s\tvalue: %s", item.getClass().getSimpleName(), item));
+            logger.info(String.format("\t%s: %s\t%s: %s", StrInColor.green("type"), item.getClass().getSimpleName(),
+                    StrInColor.green("value"), item));
         }
-        logger.info(String.format("return type: %s", returnType));
+        logger.info(String.format("%s: %s, %s: %s", StrInColor.green("return"), result,
+                StrInColor.green("type"), returnType));
 
         //以类名加方法名作为key, 保证唯一
         String mapKey = className + "." + methodName;
         if (mapMethodCall.containsKey(mapKey))
         {
-            MethodCallAspectE entity = mapMethodCall.get(mapKey);
+            MethodCallInfo entity = mapMethodCall.get(mapKey);
             entity.setCallCount(entity.getCallCount() + 1L);
             mapMethodCall.put(mapKey, entity);
         }
         else
         {
-            MethodCallAspectE entity = new MethodCallAspectE();
+            MethodCallInfo entity = new MethodCallInfo();
             entity.setCallCount(1L);
             entity.setCallTotalTime(0L);
             mapMethodCall.put(mapKey, entity);
@@ -108,16 +119,18 @@ public class AspectLog
     @After("methodAnnotationScope()")
     protected void after(JoinPoint point)
     {
+        logger.info(StrInColor.yellow("----------------After----------------"));
+
         Long costTime = System.currentTimeMillis() - startTime.get();
         String mapKey = point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName();
 
-        MethodCallAspectE entity = mapMethodCall.get(mapKey);
+        MethodCallInfo entity = mapMethodCall.get(mapKey);
         entity.setCallTotalTime(entity.getCallTotalTime() + costTime);
         mapMethodCall.put(mapKey, entity);
 
-        logger.info(String.format("cost %sms", costTime));
-        logger.info(mapMethodCall.get(mapKey).toString());
+        logger.info(StrInColor.blue(String.format("cost %sms", costTime)));
+        logger.info(StrInColor.blue(mapMethodCall.get(mapKey).toString()));
 
-        logger.info("--------------------------------------");
+        logger.info(StrInColor.yellow("------------------------------------------------"));
     }
 }

@@ -14,32 +14,22 @@
  *  limitations under the License.
  *
  *  Author : Luoming Xu
- *  File Name : MethodCallAspectE.java
+ *  File Name : EnableAspectScope.java
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Entity;
+package com.github.luomingxuorg.javaUtil.Annotation;
 
-import lombok.Data;
+import org.aspectj.lang.annotation.Aspect;
 
-@Data
-public class MethodCallAspectE
+import java.lang.annotation.*;
+
+/**
+ * 在方法前加此注解, 此方法将会被{@link Aspect}使用
+ */
+@Target(value={ElementType.METHOD})
+@Retention(value= RetentionPolicy.RUNTIME)
+@Documented
+public @interface EnableAspectScope
 {
-    /**
-     * 调用次数
-     */
-    private Long callCount;
-    /**
-     * 调用的总耗时
-     */
-    private Long callTotalTime;
-
-    @Override
-    public String toString()
-    {
-        return "MethodCallAspectE{" +
-                "callCount=" + callCount +
-                ", callTotalTime=" + callTotalTime +
-                "ms}";
-    }
 }

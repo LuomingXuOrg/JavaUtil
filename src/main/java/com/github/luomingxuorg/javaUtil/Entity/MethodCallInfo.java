@@ -14,24 +14,32 @@
  *  limitations under the License.
  *
  *  Author : Luoming Xu
- *  File Name : PrintWithColor.java
+ *  File Name : MethodCallInfo.java
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javaUtil.Entity;
 
-/**
- * print {@link String} in color
- */
-public class PrintWithColor
+import lombok.Data;
+
+@Data
+public class MethodCallInfo
 {
-    public static void red(String temp)
-    {
-        System.out.println("\033[31m" + temp + "\033[0m");
-    }
+    /**
+     * 调用次数
+     */
+    private Long callCount;
+    /**
+     * 调用的总耗时
+     */
+    private Long callTotalTime;
 
-    public static void green(String temp)
+    @Override
+    public String toString()
     {
-        System.out.println("\033[32m" + temp + "\033[0m");
+        return "MethodCallInfo{" +
+                "callCount=" + callCount +
+                ", callTotalCostTime=" + callTotalTime +
+                "ms}";
     }
 }
