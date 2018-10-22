@@ -34,7 +34,7 @@ import java.util.Map;
 
 /**
  * 要是方法被此类发现, 需要在方法前加{@link EnableAspectScope}
- * </br>
+ * <br>
  * 使用方式
  * <pre>
  * <code>@Bean</code>
@@ -44,7 +44,7 @@ import java.util.Map;
  * }
  * </pre>
  * 可以继承此类, 来覆写{@link #before}, {@link #around}, {@link #after}
- * </br>
+ * <br>
  * 具体如何使用请参照{@link Before}, {@link Around}, {@link After}
  */
 @Aspect
