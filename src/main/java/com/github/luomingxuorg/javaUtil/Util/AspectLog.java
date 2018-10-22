@@ -20,9 +20,8 @@
 
 package com.github.luomingxuorg.javaUtil.Util;
 
-import com.github.luomingxuorg.javaUtil.Entity.MethodCallInfo;
 import com.github.luomingxuorg.javaUtil.Annotation.EnableAspectScope;
-
+import com.github.luomingxuorg.javaUtil.Entity.MethodCallInfo;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -63,8 +62,27 @@ public class AspectLog
     private void methodAnnotationScope() {}
 
     @Before("methodAnnotationScope()")
-    protected void before()
+    protected void before(JoinPoint point)
     {
+        String mapKey = point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName();
+
+        //以类名加方法名作为key, 保证唯一
+        if (mapMethodCall.containsKey(mapKey))
+        {
+            MethodCallInfo entity = mapMethodCall.get(mapKey);
+            //在before增加调用计数
+            entity.setCallCount(entity.getCallCount() + 1L);
+            mapMethodCall.put(mapKey, entity);
+        }
+        else
+        {
+            MethodCallInfo entity = new MethodCallInfo();
+            //初始化调用计数和总耗时
+            entity.setCallCount(1L);
+            entity.setCallTotalTime(0L);
+            mapMethodCall.put(mapKey, entity);
+        }
+
         startTime.set(System.currentTimeMillis());
     }
 
@@ -97,22 +115,6 @@ public class AspectLog
         logger.info(String.format("%s: %s, %s: %s", StrInColor.green("return"), result,
                 StrInColor.green("type"), returnType));
 
-        //以类名加方法名作为key, 保证唯一
-        String mapKey = className + "." + methodName;
-        if (mapMethodCall.containsKey(mapKey))
-        {
-            MethodCallInfo entity = mapMethodCall.get(mapKey);
-            entity.setCallCount(entity.getCallCount() + 1L);
-            mapMethodCall.put(mapKey, entity);
-        }
-        else
-        {
-            MethodCallInfo entity = new MethodCallInfo();
-            entity.setCallCount(1L);
-            entity.setCallTotalTime(0L);
-            mapMethodCall.put(mapKey, entity);
-        }
-
         return result;
     }
 
@@ -125,6 +127,7 @@ public class AspectLog
         String mapKey = point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName();
 
         MethodCallInfo entity = mapMethodCall.get(mapKey);
+        //在after里面记录调用总耗时
         entity.setCallTotalTime(entity.getCallTotalTime() + costTime);
         mapMethodCall.put(mapKey, entity);
 
