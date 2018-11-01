@@ -109,8 +109,11 @@ public class AspectLog
         logger.info(String.format("%s: %s", StrInColor.green("args size"), args.length));
         for (Object item : args)
         {
-            logger.info(String.format("\t%s: %s\t%s: %s", StrInColor.green("type"), item.getClass().getSimpleName(),
-                    StrInColor.green("value"), item));
+            if (item != null)
+            {
+                logger.info(String.format("\t%s: %s\t%s: %s", StrInColor.green("type"), item.getClass().getSimpleName(),
+                        StrInColor.green("value"), item));
+            }
         }
         logger.info(String.format("%s: %s, %s: %s", StrInColor.green("return"), result,
                 StrInColor.green("type"), returnType));
