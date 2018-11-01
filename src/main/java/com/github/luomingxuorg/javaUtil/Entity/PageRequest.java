@@ -20,10 +20,7 @@
 
 package com.github.luomingxuorg.javaUtil.Entity;
 
-import com.github.luomingxuorg.javaUtil.Annotation.SortDefault;
 import lombok.Data;
-
-import java.lang.reflect.Field;
 
 /**
  * 定义分页需求的类
@@ -46,38 +43,5 @@ public class PageRequest
     //第几页
     private Integer page = 0;
 
-    @SortDefault(fieldName = "123", Direction = Sort.Direction.DESC)
     private Sort sort;
-
-    public Sort getSort()
-    {
-        if (sort == null)
-        {
-            try
-            {
-                Field field = this.getClass().getDeclaredField("sort");
-                SortDefault temp = field.getAnnotation(SortDefault.class);
-                if (temp != null)
-                {
-                    sort = new Sort(temp.fieldName(), temp.Direction());
-                }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return sort;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "PageRequest{" +
-                "size=" + size +
-                ", page=" + page +
-                ", sort=" + sort +
-                '}';
-    }
 }
