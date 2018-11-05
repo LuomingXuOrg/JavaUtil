@@ -89,7 +89,7 @@ public class AspectLog
     @Around("methodAnnotationScope()")
     protected Object around(ProceedingJoinPoint point) throws Throwable
     {
-        logger.info(StrInColor.yellow("----------------Around----------------"));
+        logger.info(PrintWithColor.yellow("----------------Around----------------"));
 
         Object result = point.proceed();
 
@@ -104,19 +104,19 @@ public class AspectLog
         //参数
         Object[] args = point.getArgs();
 
-        logger.info(String.format("%s: %s(%s)", StrInColor.green("class/interface"), className, classType));
-        logger.info(String.format("%s: %s", StrInColor.green("method"), methodName));
-        logger.info(String.format("%s: %s", StrInColor.green("args size"), args.length));
+        logger.info(String.format("%s: %s(%s)", PrintWithColor.green("class/interface"), className, classType));
+        logger.info(String.format("%s: %s", PrintWithColor.green("method"), methodName));
+        logger.info(String.format("%s: %s", PrintWithColor.green("args size"), args.length));
         for (Object item : args)
         {
             if (item != null)
             {
-                logger.info(String.format("\t%s: %s\t%s: %s", StrInColor.green("type"), item.getClass().getSimpleName(),
-                        StrInColor.green("value"), item));
+                logger.info(String.format("\t%s: %s\t%s: %s", PrintWithColor.green("type"), item.getClass().getSimpleName(),
+                        PrintWithColor.green("value"), item));
             }
         }
-        logger.info(String.format("%s: %s, %s: %s", StrInColor.green("return"), result,
-                StrInColor.green("type"), returnType));
+        logger.info(String.format("%s: %s, %s: %s", PrintWithColor.green("return"), result,
+                PrintWithColor.green("type"), returnType));
 
         return result;
     }
@@ -124,7 +124,7 @@ public class AspectLog
     @After("methodAnnotationScope()")
     protected void after(JoinPoint point)
     {
-        logger.info(StrInColor.yellow("----------------After----------------"));
+        logger.info(PrintWithColor.yellow("----------------After----------------"));
 
         Long costTime = System.currentTimeMillis() - startTime.get();
         String mapKey = point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName();
@@ -134,9 +134,9 @@ public class AspectLog
         entity.setCallTotalTime(entity.getCallTotalTime() + costTime);
         mapMethodCall.put(mapKey, entity);
 
-        logger.info(StrInColor.blue(String.format("cost %sms", costTime)));
-        logger.info(StrInColor.blue(mapMethodCall.get(mapKey).toString()));
+        logger.info(PrintWithColor.blue(String.format("cost %sms", costTime)));
+        logger.info(PrintWithColor.blue(mapMethodCall.get(mapKey).toString()));
 
-        logger.info(StrInColor.yellow("------------------------------------------------"));
+        logger.info(PrintWithColor.yellow("------------------------------------------------"));
     }
 }

@@ -14,7 +14,7 @@
  *  limitations under the License.
  *
  *  Author : Luoming Xu
- *  File Name : StrInColor.java
+ *  File Name : PrintWithColor.java
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
@@ -23,7 +23,7 @@ package com.github.luomingxuorg.javaUtil.Util;
 /**
  * print {@link String} in color
  */
-public class StrInColor
+public class PrintWithColor
 {
     public static void printBlack(String temp)
     {
