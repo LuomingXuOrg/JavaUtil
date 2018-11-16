@@ -6,7 +6,7 @@
 
     <groupId>com.github.luomingxuorg</groupId>
     <artifactId>JavaUtil</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.4.1</version>
     <!--发布到中央仓库需要的东西-->
     <packaging>jar</packaging>
     <name>JavaUtil</name>
@@ -151,7 +151,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>26.0-jre</version>
+            <version>27.0-jre</version>
         </dependency>
         <!--logger-->
         <dependency>
@@ -163,14 +163,20 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.1</version>
+            <version>1.9.2</version>
         </dependency>
         <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.2</version>
+            <version>1.18.4</version>
             <scope>provided</scope>
+        </dependency>
+        <!--sql parser-->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>1.3</version>
         </dependency>
     </dependencies>
 </project>

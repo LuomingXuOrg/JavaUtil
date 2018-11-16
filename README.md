@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.3.4-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.3.4.1-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -35,5 +35,5 @@ java工具类
 [sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
 [page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
 [converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/EntityConverter.java "转化"
-[frameworkFile]:src/main/java/com/github/luomingxuorg/javaUtil/Util/GenerateFrameworkFileBySQL.java "groovy文件"
+[frameworkFile]:src/main/java/com/github/luomingxuorg/javaUtil/Util/GenerateFrameworkFile.java "groovy文件"
 [aop]:src/main/java/com/github/luomingxuorg/javaUtil/Util/AspectLog.java "aop"

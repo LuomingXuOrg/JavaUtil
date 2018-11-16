@@ -14,13 +14,17 @@
  *  limitations under the License.
  *
  *  Author : Luoming Xu
- *  File Name : GenerateFrameworkFileBySQL.java
+ *  File Name : GenerateFrameworkFileBySQLDeprecated.java
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
 package com.github.luomingxuorg.javaUtil.Util;
 
 import com.google.common.base.CaseFormat;
+import net.sf.jsqlparser.parser.CCJSqlParser;
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.create.table.CreateTable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +35,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GenerateFrameworkFileBySQL
+/**
+ * 作为学习, 保留在此, 不再使用
+ */
+@Deprecated
+public class GenerateFrameworkFileBySQLDeprecated
 {
     /**
      * 数据库--表名
@@ -197,11 +205,11 @@ public class GenerateFrameworkFileBySQL
         }
 
         //必须有的行
-        sb.append("column(name: \"created_by\", type: \"BIGINT\", defaultValue: \"0\", remarks: '创建人')\n");
-        sb.append("column(name: \"creation_date\", type: \"DATETIME not null\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remarks: '创建时间')\n");
-        sb.append("column(name: \"last_updated_by\", type: \"BIGINT\", defaultValue: \"0\", remarks: '修改人')\n");
-        sb.append("column(name: \"last_update_date\", type: \"DATETIME not null on update current_timestamp\", defaultValueComputed: \"CURRENT_TIMESTAMP\", remarks: '最后修改时间')\n");
-        sb.append("column(name: \"object_version_number\", type: \"BIGINT\", defaultValue: \"1\", remarks: '版本号')\n");
+        sb.append("column(name: \'created_by\', type: \'BIGINT\', defaultValue: \'0\', remarks: '创建人')\n");
+        sb.append("column(name: \'creation_date\', type: \'DATETIME not null\', defaultValueComputed: \'CURRENT_TIMESTAMP\', remarks: '创建时间')\n");
+        sb.append("column(name: \'last_updated_by\', type: \'BIGINT\', defaultValue: \'0\', remarks: '修改人')\n");
+        sb.append("column(name: \'last_update_date\', type: \'DATETIME not null on update current_timestamp\', defaultValueComputed: \'CURRENT_TIMESTAMP\', remarks: '最后修改时间')\n");
+        sb.append("column(name: \'object_version_number\', type: \'BIGINT\', defaultValue: \'1\', remarks: '版本号')\n");
 
         sb.append("}\n");
         sb.append("}\n");
