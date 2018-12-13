@@ -20,12 +20,12 @@
 
 package com.github.luomingxuorg.javaUtil.Annotation;
 
-import org.aspectj.lang.annotation.Aspect;
+import com.github.luomingxuorg.javaUtil.Util.AspectLog;
 
 import java.lang.annotation.*;
 
 /**
- * 在方法前加此注解, 此方法将会被{@link Aspect}使用
+ * 在方法前加此注解, 此方法将会被{@link AspectLog#methodAnnotationScope()}使用
  */
 @Target(value={ElementType.METHOD})
 @Retention(value= RetentionPolicy.RUNTIME)
