@@ -33,18 +33,109 @@ import java.util.List;
 public class ListPageHelper
 {
     //设置最大的size和page, 可以修改
+    @Deprecated
     private static Integer maxSize = 100;
+    @Deprecated
     private static Integer maxPage = 100;
+
+    /**
+     * 采用list.subList()来进行分页, 简单的测试了一下, 好像速度没有太大的区别2333
+     * 就先这样把...
+     *
+     * @param pageRequest 对分页的需求类
+     * @param paramList  需要分页的List
+     * @param <T>         List的Model
+     * @return PageEntity
+     */
+    public static <T> PageEntity<T> doPage(PageRequest pageRequest, List<T> paramList)
+    {
+        //内部需要的类
+        PageEntity<T> pageEntity = new PageEntity<>();
+
+        //对paramLists进行判断
+        if (paramList == null || paramList.size() < 1)
+        {
+            System.err.println("No data in lists. ");
+            pageEntity.setEmpty(true);
+            return pageEntity;
+        }
+        //对pageRequest进行判断
+        if (pageRequest == null || (pageRequest.getSize() == null | pageRequest.getPage() == null))
+        {
+            System.err.println("No data in pageRequest. ");
+            pageEntity.setEmpty(true);
+            return pageEntity;
+        }
+
+        Integer size = pageRequest.getSize();
+        Integer page = pageRequest.getPage();
+        Integer listSize = paramList.size();
+
+        //设置总数据数
+        pageEntity.setTotalElements(listSize);
+        //页内数据默认大小
+        pageEntity.setSize(size);
+        //当前页码
+        pageEntity.setPage(page);
+        //总页数
+        pageEntity.setTotalPages((int) Math.ceil(listSize.doubleValue() / size.doubleValue()));
+
+        //进行分页
+        Integer startIndex = (page - 1) * size;
+        Integer endIndex = startIndex + size;
+
+        Integer pageElements = size;
+
+        if (startIndex > listSize)
+        {
+            pageEntity.setEmpty(true);
+            pageEntity.setPageOfElements(0);
+            return pageEntity;
+        }
+
+        if (endIndex > listSize)
+        {
+            endIndex = listSize;
+            pageElements = endIndex - startIndex;
+        }
+
+        if (startIndex.equals(endIndex))
+        {
+            pageEntity.setEmpty(true);
+            pageEntity.setPageOfElements(0);
+            return pageEntity;
+        }
+
+        pageEntity.setPageOfElements(pageElements);
+
+        //sort
+        if (pageRequest.getSort() != null)
+        {
+            try
+            {
+                SortUtil.doSort(pageRequest.getSort(), paramList);
+            }
+            catch (SortException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        pageEntity.setContent(paramList.subList(startIndex, endIndex));
+
+        return pageEntity;
+    }
 
     /**
      * 对传来的List进行分页的操作
      *
      * @param pageRequest 对分页的需求类
-     * @param paramLists  需要分页的List
+     * @param paramList  需要分页的List
      * @param <T>         List的Model
      * @return PageEntity
      */
-    public static <T> PageEntity<T> doPage(PageRequest pageRequest, List<T> paramLists, Integer... param)
+    @Deprecated
+    public static <T> PageEntity<T> doPage(PageRequest pageRequest, List<T> paramList, Integer... param)
     {
         setMaxSizePage(param);
 
@@ -53,7 +144,7 @@ public class ListPageHelper
         PageEntity<T> pageEntity = new PageEntity<>();
 
         //对paramLists进行判断
-        if (paramLists == null || paramLists.size() < 1)
+        if (paramList == null || paramList.size() < 1)
         {
             System.err.println("No data in lists. ");
             pageEntity.setEmpty(true);
@@ -72,7 +163,7 @@ public class ListPageHelper
         {
             try
             {
-                SortUtil.doSort(pageRequest.getSort(), paramLists);
+                SortUtil.doSort(pageRequest.getSort(), paramList);
             }
             catch (SortException e)
             {
@@ -91,14 +182,14 @@ public class ListPageHelper
         }
 
         //设置总数据数
-        pageEntity.setTotalElements(paramLists.size());
+        pageEntity.setTotalElements(paramList.size());
         //页内数据默认大小
         pageEntity.setSize(size);
         //当前页码
         pageEntity.setPage(page);
 
         //需要的数量大于总的数据量
-        if (size >= paramLists.size())
+        if (size >= paramList.size())
         {
             //且page > 1时, 就没有数据
             if (page > 1)
@@ -107,7 +198,7 @@ public class ListPageHelper
                 return pageEntity;
             }
 
-            pageEntity.setPageOfElements_Content_TotalPages(paramLists.size(), paramLists, 1);
+            pageEntity.setPageOfElements_Content_TotalPages(paramList.size(), paramList, 1);
             return pageEntity;
         }
 
@@ -116,7 +207,7 @@ public class ListPageHelper
         {
             for (int i = size * (page - 1); i < size * page; i++)
             {
-                pagedLists.add(paramLists.get(i));
+                pagedLists.add(paramList.get(i));
                 //添加成功之后再计数
                 count++;
             }
@@ -128,17 +219,17 @@ public class ListPageHelper
             if (count == 0)
             {
                 pageEntity.setEmpty(true);
-                pageEntity.setTotalPages((paramLists.size() / size) + 1);
+                pageEntity.setTotalPages((paramList.size() / size) + 1);
                 return pageEntity;
             }
             else
             {
-                pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
+                pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramList.size() / size) + 1);
             }
             return pageEntity;
         }
 
-        pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramLists.size() / size) + 1);
+        pageEntity.setPageOfElements_Content_TotalPages(count, pagedLists, (paramList.size() / size) + 1);
 
         return pageEntity;
     }
@@ -148,6 +239,7 @@ public class ListPageHelper
      *
      * @param param first is size, second is page
      */
+    @Deprecated
     private static void setMaxSizePage(Integer... param)
     {
         Integer[] temp = param.clone();
@@ -156,6 +248,7 @@ public class ListPageHelper
             maxSize = temp[0];
             maxPage = temp[1];
         }
-        catch(Exception e) { /*try set value*/}
+        catch (Exception e)
+        { /*try set value*/}
     }
 }
