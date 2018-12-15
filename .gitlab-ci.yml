@@ -1,0 +1,15 @@
+image: winjava:0
+
+stages:
+  - mvn-package
+
+maven-test-docker:
+  stage: mvn-package
+  script:
+    - mvn clean package
+    - echo "LuomingXu"
+  only:
+    - tags
+    - develop
+    - /^release-.*$/
+    - /^hotfix-.*$/
