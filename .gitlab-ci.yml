@@ -7,8 +7,8 @@ mvn-job:
     - echo "LuomingXu"
   tags: 
     - javautil-tag
-  artifact: 
-    path: 
-      - target/*.jar
+  artifacts:
+    paths:
+    - target/*.jar
   only: 
     - mater
