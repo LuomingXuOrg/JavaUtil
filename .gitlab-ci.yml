@@ -11,4 +11,4 @@ mvn-job:
     paths:
     - target/*.jar
   only: 
-    - mater
+    - master
