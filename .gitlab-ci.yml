@@ -6,7 +6,7 @@ mvn-job:
     - mvn clean package
     - echo "LuomingXu"
   tags: 
-    - javautil-tag
+    - gitlab-org
   artifacts:
     paths:
     - target/*.jar
