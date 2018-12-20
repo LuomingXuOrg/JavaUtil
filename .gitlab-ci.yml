@@ -1,4 +1,4 @@
-image: winjava:0
+image: luomingxu/winjava:0
 
 mvn-job: 
   stage: build
