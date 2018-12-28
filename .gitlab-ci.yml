@@ -5,11 +5,11 @@ stages:
   - build
 
 variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+  MAVEN_OPTS: "-Dmaven.repo.local=cache/.m2"
 cache:
     key: "$CI_JOB_NAME"
     paths:
-      - .m2/repository/
+      - cache/.m2/repository/
 
 test: 
   stage: test
