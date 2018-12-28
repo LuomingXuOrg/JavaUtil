@@ -6,6 +6,10 @@ stages:
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - .m2/repository/
 
 test: 
   stage: test
@@ -19,10 +23,6 @@ test:
   retry: 
     max: 2
     when: always
-  cache:
-    key: "$CI_BUILD_REF_NAME"
-    paths:
-      - ./.m2/repository/
 
 build: 
   stage: build
@@ -33,10 +33,6 @@ build:
     - mvn clean package
   tags: 
     - gitlab-org
-  cache:
-    key: "$CI_BUILD_REF_NAME"
-    paths:
-      - ./.m2/repository/
   artifacts:
     paths:
       - target/*.jar
