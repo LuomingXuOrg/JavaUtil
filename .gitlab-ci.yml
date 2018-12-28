@@ -1,8 +1,14 @@
 image: maven:3.6.0-jdk-8
 
+stages:
+  - test
+  - build
+
 test: 
   stage: test
   when: always
+  only: 
+    - master
   script: 
     - mvn clean compile
   tags: 
@@ -17,11 +23,13 @@ test:
 build: 
   stage: build
   when: on_success
+  only: 
+    - master
   script: 
-    - mvn package
+    - mvn clean package
+  tags: 
+    - gitlab-org
   artifacts:
     paths:
       - target/*.jar
-  only: 
-      - master
   
