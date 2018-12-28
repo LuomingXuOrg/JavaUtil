@@ -8,7 +8,7 @@ test:
   tags: 
     - gitlab-org
   retry: 
-    max: 3
+    max: 2
     when: always
   cache:
     paths:
