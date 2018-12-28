@@ -18,7 +18,7 @@ test:
     when: always
   cache:
     paths:
-      - .m2/repository
+      - ~/.m2/repository
 
 build: 
   stage: build
@@ -29,6 +29,9 @@ build:
     - mvn clean package
   tags: 
     - gitlab-org
+  cache:
+    paths:
+      - ~/.m2/repository
   artifacts:
     paths:
       - target/*.jar
