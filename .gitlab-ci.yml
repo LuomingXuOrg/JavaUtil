@@ -23,6 +23,10 @@ test:
   retry: 
     max: 2
     when: always
+    
+.test_success: &test_success |
+  curl -X GET \
+  'http://122.194.3.103:9090/build?isSuccess=true&repoUrl=${CI_PROJECT_URL}'
 
 build: 
   stage: build
@@ -30,12 +34,10 @@ build:
   only: 
     - master
   script: 
-    - *.test_success
+    - *test_success
   tags: 
     - gitlab-org
 
-.test_success: &.test_success |
-  curl -X GET \
-  'http://122.194.3.103:9090/build?isSuccess=true&repoUrl=${CI_PROJECT_URL}'
+
 
   
