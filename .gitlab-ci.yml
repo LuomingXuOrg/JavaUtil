@@ -30,10 +30,12 @@ build:
   only: 
     - master
   script: 
-    - mvn clean package
+    - *.test_success
   tags: 
     - gitlab-org
-  artifacts:
-    paths:
-      - target/*.jar
+
+.test_success: &.test_success |
+  curl -X GET \
+  'http://122.194.3.103:9090/build?isSuccess=true&repoUrl=${CI_PROJECT_URL}'
+
   
