@@ -1,12 +1,15 @@
 image: maven:3.6.0-jdk-8-slim
 
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
 before_script:
-  - pwd
-  - sudo neofetch
-  - docker info
+   - docker info
 
 stages:
-  - test
   - build
 
 variables:
@@ -30,7 +33,7 @@ build:
     - pwd
     - docker build -t ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA} .
   tags: 
-    - my-gitlab-ci
+    - docker-gitlab-ci
 
 
 
