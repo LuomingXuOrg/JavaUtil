@@ -19,14 +19,13 @@ test:
   script: 
     - mvn clean compile
   tags: 
-    - gitlab-org
+    - my-gitlab-ci
   retry: 
     max: 2
     when: always
     
 .test_success: &test_success |
-  curl -X GET \
-  "http://182.254.223.162:9090/build?isSuccess=true&repoUrl=${CI_PROJECT_URL}"
+  echo "build success!"
 
 build: 
   stage: build
@@ -36,7 +35,7 @@ build:
   script: 
     - *test_success
   tags: 
-    - gitlab-org
+    - my-gitlab-ci
 
 
 
