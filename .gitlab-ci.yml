@@ -27,7 +27,7 @@ mvn_build:
     - cp target/app.jar /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/app.jar
     - cp src/main/docker/Dockerfile /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/Dockerfile
   tags: 
-    - docker-executor-1
+    - docker-executor
 
 docker_build: 
   services:
@@ -39,7 +39,7 @@ docker_build:
   script: 
     - docker info 
     - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
-    - tag=$(echo ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA}|tr [:upper:] [:lower:])
+    - tag=$(echo ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_TAG}|tr [:upper:] [:lower:])
     - docker build -t $tag .
   tags: 
-    - docker-executor-1
+    - docker-executor
