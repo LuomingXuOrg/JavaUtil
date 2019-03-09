@@ -49,11 +49,11 @@ public class SortUtil
      * 给外部调用的排序的方法
      *
      * @param sort
-     * @param paramLists
+     * @param paramList
      * @param <T>
      * @throws SortException
      */
-    public static <T> void doSort(Sort sort, List<T> paramLists) throws SortException
+    public static <T> void doSort(Sort sort, List<T> paramList) throws SortException
     {
         //判断是否选择了需要排序的fieldName
         if (sort.getFieldName() == null)
@@ -61,7 +61,7 @@ public class SortUtil
             throw new SortException("You did not choose one field which you want to sort by it! ");
         }
 
-        paramLists.sort((one, two) ->
+        paramList.sort((one, two) ->
         {
             try
             {
