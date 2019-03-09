@@ -11,22 +11,6 @@ cache:
     paths:
       - .m2/
 
-test: 
-  stage: test
-  when: always
-  only: 
-    - master
-  script: 
-    - mvn clean compile
-  tags: 
-    - my-gitlab-ci
-  retry: 
-    max: 2
-    when: always
-    
-.test_success: &test_success |
-  echo "build success!"
-
 build: 
   stage: build
   when: on_success
