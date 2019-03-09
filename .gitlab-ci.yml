@@ -1,15 +1,14 @@
 image: docker:stable
 
+services:
+  - docker:dind
+
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
 
 before_script:
    - docker info
-
-services:
-  - docker:dind
-  - maven:3.6.0-jdk-8-slim
 
 stages:
   - mvn_build
@@ -24,6 +23,7 @@ cache:
       - .m2/
 
 mvn_build: 
+  image: maven:3.6.0-jdk-8-slim
   stage: mvn_build
   only: 
     - master
