@@ -7,6 +7,10 @@ variables:
 before_script:
    - docker info
 
+services:
+  - docker:dind
+  - maven:3.6.0-jdk-8-slim
+
 stages:
   - mvn_build
   - docker_build
@@ -20,7 +24,6 @@ cache:
       - .m2/
 
 mvn_build: 
-  image: maven:3.6.0-jdk-8-slim
   stage: mvn_build
   only: 
     - master
@@ -33,7 +36,6 @@ mvn_build:
     - docker-gitlab-ci
 
 docker_build: 
-  image: docker:dind
   when: on_success 
   stage: docker_build
   only: 
