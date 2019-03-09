@@ -1,5 +1,11 @@
 image: maven:3.6.0-jdk-8-slim
 
+services:
+  - docker:dind
+
+before_script:
+  - docker info
+
 stages:
   - test
   - build
