@@ -1,16 +1,15 @@
-image: maven:3.6.0-jdk-8-slim
+image: docker:stable
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
 
-services:
-  - docker:dind
 before_script:
    - docker info
 
 stages:
-  - build
+  - mvn_build
+  - docker_build
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
@@ -20,8 +19,9 @@ cache:
     paths:
       - .m2/
 
-build: 
-  stage: build
+mvn_build: 
+  image: maven:3.6.0-jdk-8-slim
+  stage: mvn_build
   only: 
     - master
   script: 
@@ -29,11 +29,18 @@ build:
     - mkdir -p /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
     - cp target/app.jar /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/app.jar
     - cp src/main/docker/Dockerfile /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/Dockerfile
-    - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
-    - pwd
-    - docker build -t ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA} .
   tags: 
     - docker-gitlab-ci
+
+docker_build: 
+  image: docker:dind
+  when: on_success 
+  stage: docker_build
+  only: 
+    - master
+  script: 
+    - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
+    - docker build -t ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA} .
 
 
 
