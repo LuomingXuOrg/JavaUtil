@@ -131,6 +131,7 @@
     <!--END-发布到中央仓库需要的东西-END-->
 
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

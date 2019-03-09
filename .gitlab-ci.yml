@@ -1,4 +1,4 @@
-image: maven:3.6.0-jdk-8
+image: maven:3.6.0-jdk-8-slim
 
 stages:
   - test
@@ -33,7 +33,10 @@ build:
   only: 
     - master
   script: 
-    - *test_success
+    - mvn clean package
+    - ls -a
+    - mkdir -p /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
+    - cp target/app.jar /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/app.jar
   tags: 
     - my-gitlab-ci
 
