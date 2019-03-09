@@ -1,8 +1,5 @@
 image: docker:stable
 
-services:
-  - docker:dind
-
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
@@ -33,17 +30,16 @@ mvn_build:
     - docker-executor
 
 docker_build: 
+  services:
+    - docker:dind 
   when: on_success 
   stage: docker_build
   only: 
     - master
   script: 
-    - docker info
+    - docker info 
     - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
-    - docker build -t ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA} .
+    - tag=$(echo ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA}|tr [:upper:] [:lower:])
+    - docker build -t $tag .
   tags: 
     - docker-executor
-
-
-
-  
