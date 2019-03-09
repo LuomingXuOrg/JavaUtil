@@ -33,7 +33,7 @@ mvn_build:
     - cp target/app.jar /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/app.jar
     - cp src/main/docker/Dockerfile /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/Dockerfile
   tags: 
-    - docker-gitlab-ci
+    - docker-executor
 
 docker_build: 
   when: on_success 
@@ -43,6 +43,8 @@ docker_build:
   script: 
     - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
     - docker build -t ${CI_PROJECT_NAME}/${CI_COMMIT_REF_NAME}:${CI_COMMIT_SHA} .
+  tags: 
+    - docker-executor
 
 
 
