@@ -20,6 +20,7 @@
 
 package com.github.luomingxuorg.javaUtil.Entity;
 
+import com.github.pagehelper.Page;
 import lombok.Data;
 
 import java.util.List;
@@ -27,9 +28,11 @@ import java.util.List;
 @Data
 public class PageEntity<T>
 {
-    public PageEntity() {}
+    public PageEntity()
+    {
+    }
 
-    public PageEntity(Integer totalPages, Integer totalElements, Integer pageOfElements, Integer size, Integer page, List<T> content, boolean empty)
+    public PageEntity(Integer totalPages, Long totalElements, Integer pageOfElements, Integer size, Integer page, List<T> content, boolean empty)
     {
         this.totalPages = totalPages;
         this.totalElements = totalElements;
@@ -40,16 +43,27 @@ public class PageEntity<T>
         this.empty = empty;
     }
 
+    public PageEntity(Page<T> page)
+    {
+        this.totalPages = page.getPages();
+        this.totalElements = page.getTotal();
+        this.pageOfElements = page.size();
+        this.size = page.getPageSize();
+        this.page = page.getPageNum();
+        this.content = page;
+        this.empty = page.size() < 1;
+    }
+
     /**
      * 总页数--从1开始
      */
     private Integer totalPages;
     /**
-     * 总数据数
+     * 数据库中的总数
      */
-    private Integer totalElements;
+    private Long totalElements;
     /**
-     * 当前页数据数
+     * 当前页的content大小
      */
     private Integer pageOfElements;
     /**
@@ -61,11 +75,11 @@ public class PageEntity<T>
      */
     private Integer page;
     /**
-     * 包含的list数据
+     * 当前页内的内容
      */
     private List<T> content;
     /**
-     * 是否为空, 默认为false
+     * content是否为空, 默认为false
      */
     private boolean empty = false;
 

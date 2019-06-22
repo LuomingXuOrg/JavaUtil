@@ -31,7 +31,10 @@ import java.util.List;
  * do, entity, dto. 转化<br>
  * 会同时转化父类里面的字段
  * 不转化static的字段
+ *
+ * @deprecated 建议使用cglib https://github.com/cglib/cglib
  */
+@Deprecated
 public class EntityConverter
 {
     public static <T> T convert(T destin, Object source)

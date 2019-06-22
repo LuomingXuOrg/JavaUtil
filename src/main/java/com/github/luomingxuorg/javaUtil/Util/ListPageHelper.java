@@ -72,7 +72,7 @@ public class ListPageHelper
         Integer listSize = paramList.size();
 
         //设置总数据数
-        pageEntity.setTotalElements(listSize);
+        pageEntity.setTotalElements(Long.valueOf(listSize));
         //页内数据默认大小
         pageEntity.setSize(size);
         //当前页码
@@ -182,7 +182,7 @@ public class ListPageHelper
         }
 
         //设置总数据数
-        pageEntity.setTotalElements(paramList.size());
+        pageEntity.setTotalElements((long) paramList.size());
         //页内数据默认大小
         pageEntity.setSize(size);
         //当前页码

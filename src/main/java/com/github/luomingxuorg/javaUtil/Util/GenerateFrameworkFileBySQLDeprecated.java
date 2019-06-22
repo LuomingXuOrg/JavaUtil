@@ -36,7 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 作为学习, 保留在此, 不再使用
+ * @deprecated 作为学习, 保留在此, 不再使用
  */
 @Deprecated
 public class GenerateFrameworkFileBySQLDeprecated

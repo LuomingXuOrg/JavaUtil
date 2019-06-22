@@ -3,13 +3,11 @@ image: docker:stable
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
 
 stages:
   - mvn_build
   - docker_build
-
-variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
 
 cache:
     key: "$CI_JOB_NAME"
