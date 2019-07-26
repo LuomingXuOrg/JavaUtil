@@ -6,7 +6,7 @@
 
     <groupId>com.github.luomingxuorg</groupId>
     <artifactId>JavaUtil</artifactId>
-    <version>2.4.0</version>
+    <version>2.5.0</version>
     <!--发布到中央仓库需要的东西-->
     <packaging>jar</packaging>
     <name>JavaUtil</name>
@@ -149,6 +149,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.26</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.26</version>
+        </dependency>
         <!--aop-->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -173,6 +178,17 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>5.1.10</version>
+        </dependency>
+        <!--BeanCopy-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.12</version>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>reflectasm</artifactId>
+            <version>1.11.9</version>
         </dependency>
     </dependencies>
 
