@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.3.5-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.5.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -20,10 +20,10 @@ java工具类
 
 版本号|说明|当前版本
 --------|------------------------------|:--:
-major|主版本号, 一般都是大更新           |2
-minor|添加了一些新的功能                 |3
-build|对功能增加了一些方法, 优化了一些东西 |5
-error|错误修正                           |null
+major|主版本号|2
+minor|添加了一些新的功能|5
+build|对功能增加了一些方法, 优化了一些东西|0
+error|错误修正|null
 
 #### Test, PR
 
@@ -43,6 +43,6 @@ error|错误修正                           |null
 [pwd]:src/main/java/com/github/luomingxuorg/javaUtil/Util/PwdPbkdf2.java "密码"
 [sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
 [page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
-[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/EntityConverter.java "转化"
+[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/WrapperConverter.java "转化"
 [frameworkFile]:src/main/java/com/github/luomingxuorg/javaUtil/Util/GenerateFrameworkFile.java "groovy文件"
 [aop]:src/main/java/com/github/luomingxuorg/javaUtil/Util/AspectLog.java "aop"
