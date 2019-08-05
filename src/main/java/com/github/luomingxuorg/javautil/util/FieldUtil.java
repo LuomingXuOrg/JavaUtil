@@ -18,9 +18,9 @@
  * Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
-import com.github.luomingxuorg.javaUtil.Exception.SortException;
+import com.github.luomingxuorg.javautil.exception.SortException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

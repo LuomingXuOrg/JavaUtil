@@ -18,7 +18,7 @@
  * Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Entity;
+package com.github.luomingxuorg.javautil.entity;
 
 import com.github.pagehelper.Page;
 import lombok.Data;

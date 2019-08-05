@@ -18,11 +18,11 @@
  * Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
-import com.github.luomingxuorg.javaUtil.Entity.PageEntity;
-import com.github.luomingxuorg.javaUtil.Entity.PageRequest;
-import com.github.luomingxuorg.javaUtil.Exception.SortException;
+import com.github.luomingxuorg.javautil.entity.PageEntity;
+import com.github.luomingxuorg.javautil.entity.PageRequest;
+import com.github.luomingxuorg.javautil.exception.SortException;
 
 import java.util.ArrayList;
 import java.util.List;

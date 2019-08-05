@@ -1,43 +1,21 @@
-image: docker:stable
+image: maven:3-jdk-8-slim
 
 variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
 
 stages:
-  - mvn_build
-  - docker_build
+  - mvn_test
 
 cache:
-    key: "$CI_JOB_NAME"
+    key: "$CI_PROJECT_ID"
     paths:
       - .m2/
 
-mvn_build: 
-  image: maven:3.6.0-jdk-8-slim
-  stage: mvn_build
+mvn_build:
+  stage: mvn_test
   only: 
     - master
   script: 
     - mvn clean package
-    - mkdir -p /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
-    - cp target/app.jar /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/app.jar
-    - cp src/main/docker/Dockerfile /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/Dockerfile
-  tags: 
-    - docker-executor
-
-docker_build: 
-  services:
-    - docker:dind 
-  when: on_success 
-  stage: docker_build
-  only: 
-    - master
-  script: 
-    - docker info 
-    - cd /cache/${CI_PROJECT_NAME}-${CI_PROJECT_ID}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}/
-    - tag=$(echo ${CI_PROJECT_NAME}:${CI_COMMIT_REF_NAME}|tr [:upper:] [:lower:])
-    - docker build -t $tag .
   tags: 
     - docker-executor

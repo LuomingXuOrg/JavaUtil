@@ -18,15 +18,14 @@
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
-import com.github.luomingxuorg.javaUtil.Annotation.EnableAspectScope;
-import com.github.luomingxuorg.javaUtil.Entity.MethodCallInfo;
+import com.github.luomingxuorg.javautil.annotation.EnableAspectScope;
+import com.github.luomingxuorg.javautil.entity.MethodCallInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,11 +45,10 @@ import java.util.Map;
  * <br>
  * 具体如何使用请参照{@link Before}, {@link Around}, {@link After}
  */
+@Slf4j
 @Aspect
 public class AspectLog
 {
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     private Map<String, MethodCallInfo> mapMethodCall = new HashMap<>();
@@ -58,7 +56,7 @@ public class AspectLog
     /**
      * 利用注解, 来确定哪些方法需要进行调用
      */
-    @Pointcut("@annotation(com.github.luomingxuorg.javaUtil.Annotation.EnableAspectScope)")
+    @Pointcut("@annotation(com.github.luomingxuorg.javautil.annotation.EnableAspectScope)")
     private void methodAnnotationScope() {}
 
     @Before("methodAnnotationScope()")
@@ -89,7 +87,7 @@ public class AspectLog
     @Around("methodAnnotationScope()")
     protected Object around(ProceedingJoinPoint point) throws Throwable
     {
-        logger.info(PrintWithColor.yellow("----------------Around----------------"));
+        log.info(PrintWithColor.yellow("----------------Around----------------"));
 
         Object result = point.proceed();
 
@@ -104,18 +102,18 @@ public class AspectLog
         //参数
         Object[] args = point.getArgs();
 
-        logger.info(String.format("%s: %s(%s)", PrintWithColor.green("class/interface"), className, classType));
-        logger.info(String.format("%s: %s", PrintWithColor.green("method"), methodName));
-        logger.info(String.format("%s: %s", PrintWithColor.green("args size"), args.length));
+        log.info(String.format("%s: %s(%s)", PrintWithColor.green("class/interface"), className, classType));
+        log.info(String.format("%s: %s", PrintWithColor.green("method"), methodName));
+        log.info(String.format("%s: %s", PrintWithColor.green("args size"), args.length));
         for (Object item : args)
         {
             if (item != null)
             {
-                logger.info(String.format("\t%s: %s\t%s: %s", PrintWithColor.green("type"), item.getClass().getSimpleName(),
-                        PrintWithColor.green("value"), item));
+                log.info(String.format("\t%s: %s\t%s: %s", PrintWithColor.green("type"), item.getClass().getSimpleName(),
+                        PrintWithColor.green("value"), item.toString()));
             }
         }
-        logger.info(String.format("%s: %s, %s: %s", PrintWithColor.green("return"), result,
+        log.info(String.format("%s: %s, %s: %s", PrintWithColor.green("return"), result,
                 PrintWithColor.green("type"), returnType));
 
         return result;
@@ -124,7 +122,7 @@ public class AspectLog
     @After("methodAnnotationScope()")
     protected void after(JoinPoint point)
     {
-        logger.info(PrintWithColor.yellow("----------------After----------------"));
+        log.info(PrintWithColor.yellow("----------------After----------------"));
 
         Long costTime = System.currentTimeMillis() - startTime.get();
         String mapKey = point.getSignature().getDeclaringTypeName() + "." + point.getSignature().getName();
@@ -134,9 +132,9 @@ public class AspectLog
         entity.setCallTotalTime(entity.getCallTotalTime() + costTime);
         mapMethodCall.put(mapKey, entity);
 
-        logger.info(PrintWithColor.blue(String.format("cost %sms", costTime)));
-        logger.info(PrintWithColor.blue(mapMethodCall.get(mapKey).toString()));
+        log.info(PrintWithColor.blue(String.format("cost %sms", costTime)));
+        log.info(PrintWithColor.blue(mapMethodCall.get(mapKey).toString()));
 
-        logger.info(PrintWithColor.yellow("------------------------------------------------"));
+        log.info(PrintWithColor.yellow("------------------------------------------------"));
     }
 }

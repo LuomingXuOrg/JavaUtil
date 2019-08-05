@@ -18,13 +18,9 @@
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
 import com.google.common.base.CaseFormat;
-import net.sf.jsqlparser.parser.CCJSqlParser;
-import net.sf.jsqlparser.parser.CCJSqlParserUtil;
-import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.create.table.CreateTable;
 
 import java.io.File;
 import java.io.FileInputStream;

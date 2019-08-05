@@ -18,7 +18,7 @@
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
 import java.security.SecureRandom;
 import javax.crypto.spec.PBEKeySpec;

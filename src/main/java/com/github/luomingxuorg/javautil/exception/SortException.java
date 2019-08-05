@@ -14,34 +14,33 @@
  * limitations under the License.
  *
  * Author : Luoming Xu
- * File Name : PageRequest.java
+ * File Name : SortException.java
  * Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Entity;
+package com.github.luomingxuorg.javautil.exception;
 
-import lombok.Data;
-
-/**
- * 定义分页需求的类
- */
-@Data
-public class PageRequest
+public class SortException extends Exception
 {
-    public PageRequest() {}
+    public SortException(){
 
-    public PageRequest(Integer size, Integer page, Sort sort)
-    {
-        this.size = size;
-        this.page = page;
-        this.sort = sort;
+        super();
     }
 
-    //一页里面的数据的大小
-    private Integer size = 10;
+    public SortException(String message){
+        super(message);
 
-    //第几页
-    private Integer page = 1;
+    }
 
-    private Sort sort;
+    // 用指定的详细信息和原因构造一个新的异常
+    public SortException(String message, Throwable cause){
+
+        super(message,cause);
+    }
+
+    //用指定原因构造一个新的异常
+    public SortException(Throwable cause) {
+
+        super(cause);
+    }
 }

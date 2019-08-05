@@ -18,7 +18,7 @@
  *  Url: https://github.com/LuomingXuOrg/JavaUtil
  */
 
-package com.github.luomingxuorg.javaUtil.Util;
+package com.github.luomingxuorg.javautil.util;
 
 import com.esotericsoftware.reflectasm.ConstructorAccess;
 import lombok.NonNull;

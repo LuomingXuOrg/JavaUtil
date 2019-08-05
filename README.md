@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.5.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.5.1-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -35,14 +35,22 @@ error|错误修正|null
 #### maven dependency
 ```xml
 <dependency>
-  <groupId>com.github.luomingxuorg</groupId>
-  <artifactId>JavaUtil</artifactId>
-  <version>$version</version>
+    <groupId>com.github.luomingxuorg</groupId>
+    <artifactId>JavaUtil</artifactId>
+    <version>$version</version>
+    <!-- if you have "SLF4J: Class path contains multiple SLF4J bindings." warning
+    <exclusions>
+        <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </exclusion>
+    </exclusions>
+    -->
 </dependency>
 ```
-[pwd]:src/main/java/com/github/luomingxuorg/javaUtil/Util/PwdPbkdf2.java "密码"
-[sort]:src/main/java/com/github/luomingxuorg/javaUtil/Util/SortUtil.java "排序"
-[page]:src/main/java/com/github/luomingxuorg/javaUtil/Util/ListPageHelper.java "分页"
-[converter]:src/main/java/com/github/luomingxuorg/javaUtil/Util/WrapperConverter.java "转化"
-[frameworkFile]:src/main/java/com/github/luomingxuorg/javaUtil/Util/GenerateFrameworkFile.java "groovy文件"
-[aop]:src/main/java/com/github/luomingxuorg/javaUtil/Util/AspectLog.java "aop"
+[pwd]:src/main/java/com/github/luomingxuorg/javautil/util/PwdPbkdf2.java "密码"
+[sort]:src/main/java/com/github/luomingxuorg/javautil/util/SortUtil.java "排序"
+[page]:src/main/java/com/github/luomingxuorg/javautil/util/ListPageHelper.java "分页"
+[converter]:src/main/java/com/github/luomingxuorg/javautil/util/WrapperConverter.java "转化"
+[frameworkFile]:src/main/java/com/github/luomingxuorg/javautil/util/GenerateFrameworkFile.java "groovy文件"
+[aop]:src/main/java/com/github/luomingxuorg/javautil/util/AspectLog.java "aop"
