@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.5.1-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.5.2-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -32,6 +32,52 @@ error|错误修正|null
 
 ![image](dir-tree.png)
 
+#### Cglib Converter Example
+```java
+@Slf4j
+public class ExampleConverter implements Converter
+{
+    /**
+     * 自定义拷贝
+     *
+     * @param value   源对象
+     * @param target  目标对象的class
+     * @param context context目标对象set方法(就是个String类型的, 不知道为什么要用Object)
+     * @return 目标对象
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public Object convert(Object value, Class target, Object context)
+    {
+        log.info("value: {}", value.getClass().toString());
+        log.info("target: {}", target.getName());
+        log.info("context: {}", context.getClass().toString());
+
+        if (value instanceof InnerModelDO)
+        {
+            InnerModelDTO obj = new InnerModelDTO();
+            WrapperConverter.copy(value, obj, false, null);
+            return obj;
+        }
+
+        if (value instanceof List)
+        {
+            List list = (List) value;
+            if (!list.isEmpty() && list.get(0) instanceof InnerModelDO)
+            {
+                return WrapperConverter.copyList(list, InnerModelDTO.class, false, null);
+            }
+            else
+            {
+                return Collections.emptyList();
+            }
+        }
+
+        return value;
+    }
+}
+```
+
 #### maven dependency
 ```xml
 <dependency>
@@ -51,6 +97,6 @@ error|错误修正|null
 [pwd]:src/main/java/com/github/luomingxuorg/javautil/util/PwdPbkdf2.java "密码"
 [sort]:src/main/java/com/github/luomingxuorg/javautil/util/SortUtil.java "排序"
 [page]:src/main/java/com/github/luomingxuorg/javautil/util/ListPageHelper.java "分页"
-[converter]:src/main/java/com/github/luomingxuorg/javautil/util/WrapperConverter.java "转化"
+[converter]:src/main/java/com/github/luomingxuorg/javautil/util/WrapperConverter.java "bean拷贝"
 [frameworkFile]:src/main/java/com/github/luomingxuorg/javautil/util/GenerateFrameworkFile.java "groovy文件"
 [aop]:src/main/java/com/github/luomingxuorg/javautil/util/AspectLog.java "aop"

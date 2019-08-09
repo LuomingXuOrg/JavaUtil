@@ -1,5 +1,5 @@
 /*
- *  Copyright 2018-2018 LuomingXuOrg
+ *  Copyright 2018-2019 LuomingXuOrg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 将{@link BeanCopier#create(Class, Class, boolean)}出来的copier存储起来, 以减少创建的耗时
+ */
 @Slf4j
 public class WrapperConverter
 {
@@ -39,6 +42,14 @@ public class WrapperConverter
 
     private static final Map<String, ConstructorAccess> CONSTRUCTOR_ACCESS_CACHE = new ConcurrentHashMap<>();
 
+    /**
+     * 拷贝对象
+     *
+     * @param source       源对象
+     * @param target       目标对象
+     * @param useConverter 是否使用自定义的拷贝接口
+     * @param converter    自定义拷贝接口
+     */
     public static void copy(Object source, Object target, @NonNull boolean useConverter, Converter converter)
     {
         if (useConverter && converter == null)
@@ -51,6 +62,17 @@ public class WrapperConverter
         copier.copy(source, target, converter);
     }
 
+    /**
+     * 拷贝list
+     *
+     * @param sourceList   源list
+     * @param targetClass  目标Class
+     * @param useConverter 是否使用自定义的拷贝接口
+     * @param converter    自定义拷贝接口
+     * @param <S>          源
+     * @param <T>          目标
+     * @return 目标list
+     */
     public static <S, T> List<T> copyList(List<S> sourceList, Class<T> targetClass, @NonNull boolean useConverter, Converter converter)
     {
         if (sourceList == null || sourceList.isEmpty())
@@ -92,13 +114,11 @@ public class WrapperConverter
 
     private static BeanCopier getBeanCopier(Class sourceClass, Class targetClass, boolean useConverter)
     {
-        StringBuffer sb = new StringBuffer();
-        sb.append(sourceClass.getName());
-        sb.append("-");
-        sb.append(targetClass.getName());
-        sb.append("-");
-        sb.append(useConverter);
-        String beanKey = sb.toString();
+        String beanKey = sourceClass.getName() +
+                "-" +
+                targetClass.getName() +
+                "-" +
+                useConverter;
 
         BeanCopier copier = BEAN_COPIER_CACHE.get(beanKey);
         if (copier == null)
