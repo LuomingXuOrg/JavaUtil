@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 将{@link BeanCopier#create(Class, Class, boolean)}出来的copier存储起来, 以减少创建的耗时
+ * 将{@link BeanCopier#create(Class, Class, boolean)}的copier存储起来, 以减少创建的耗时
  */
 @Slf4j
 public class WrapperConverter
@@ -104,7 +104,7 @@ public class WrapperConverter
         }
         catch (Exception e)
         {
-            log.error(String.format("Copy list %s failed", targetClass));
+            log.error("Copy list {} failed", targetClass);
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -150,7 +150,8 @@ public class WrapperConverter
         }
         catch (Exception e)
         {
-            log.error(String.format("Create new instance of %s failed", targetClass));
+            log.error("Create new instance of {} failed, message: {}", targetClass, e.getClass().getName());
+            e.printStackTrace();
             throw e;
         }
 

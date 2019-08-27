@@ -102,19 +102,19 @@ public class AspectLog
         //参数
         Object[] args = point.getArgs();
 
-        log.info(String.format("%s: %s(%s)", PrintWithColor.green("class/interface"), className, classType));
-        log.info(String.format("%s: %s", PrintWithColor.green("method"), methodName));
-        log.info(String.format("%s: %s", PrintWithColor.green("args size"), args.length));
+        log.info("{}: {}({})", PrintWithColor.green("class/interface"), className, classType);
+        log.info("{}: {}", PrintWithColor.green("method"), methodName);
+        log.info("{}: {}", PrintWithColor.green("args size"), args.length);
         for (Object item : args)
         {
             if (item != null)
             {
-                log.info(String.format("\t%s: %s\t%s: %s", PrintWithColor.green("type"), item.getClass().getSimpleName(),
-                        PrintWithColor.green("value"), item.toString()));
+                log.info("\t{}: {}\t{}: {}", PrintWithColor.green("type"), item.getClass().getSimpleName(),
+                        PrintWithColor.green("value"), item.toString());
             }
         }
-        log.info(String.format("%s: %s, %s: %s", PrintWithColor.green("return"), result,
-                PrintWithColor.green("type"), returnType));
+        log.info("{}: {}, {}: {}", PrintWithColor.green("return"), result,
+                PrintWithColor.green("type"), returnType);
 
         return result;
     }

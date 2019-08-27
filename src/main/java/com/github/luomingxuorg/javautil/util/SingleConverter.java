@@ -31,7 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 没有暂存{@link BeanCopier#create(Class, Class, boolean)}
+ * 没有缓存{@link BeanCopier#create(Class, Class, boolean)}
  */
 @Slf4j
 public class SingleConverter
@@ -79,7 +79,7 @@ public class SingleConverter
         }
         catch (Exception e)
         {
-            log.error(String.format("Copy list %s failed", targetClass));
+            log.error("Copy list {} failed", targetClass);
             e.printStackTrace();
             return Collections.emptyList();
         }

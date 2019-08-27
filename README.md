@@ -2,26 +2,27 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.5.2-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.6.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
 
-|名称|位置|
-|---------------|:--------:|
-|密码|[pwd]|
-|对list排序|[sort][]|
-|对list进行分页操作|[page][]|
-|entity之间的转化|[converter][]|
-|从sql生成框架需要的文件|[frameworkFile][]|
-|aop实现类|[aop]|
+名称|位置
+---------------|:--------:
+密码|[pwd]
+对list排序|[sort][]
+对list进行分页操作|[page][]
+entity之间的转化|[converter][]
+从sql生成框架需要的文件|[frameworkFile][]
+aop实现类|[aop]
+分布式ID生成类|[snowflake]
 
 #### Version
 
 版本号|说明|当前版本
 --------|------------------------------|:--:
 major|主版本号|2
-minor|添加了一些新的功能|5
+minor|添加了一些新的功能|6
 build|对功能增加了一些方法, 优化了一些东西|0
 error|错误修正|null
 
@@ -31,6 +32,33 @@ error|错误修正|null
 此目录不会被提交到仓库, 以保证目录的整洁<br>
 
 ![image](dir-tree.png)
+
+#### ID Generate Example
+```java
+public class GenerateID
+{
+    public static long nextID()
+    {
+        Snowflake idGen = new Snowflake(1, 1, 1566885913535L);
+        return idGen.nextId();
+    }
+}
+// if you do not use default callback
+public class CustomSnowflake extends Snowflake
+{
+    public CustomSnowflake(long dataCenterId, long workerId, long projectStartEpoch)
+    {
+        super(dataCenterId, workerId, projectStartEpoch);
+    }
+
+    @Override
+    protected boolean timeBackwardsCallback(long timestamp, long lastTimestamp)
+    {
+        // do something
+        return true;
+    }
+}
+```
 
 #### Cglib Converter Example
 ```java
@@ -100,3 +128,4 @@ public class ExampleConverter implements Converter
 [converter]:src/main/java/com/github/luomingxuorg/javautil/util/WrapperConverter.java "bean拷贝"
 [frameworkFile]:src/main/java/com/github/luomingxuorg/javautil/util/GenerateFrameworkFile.java "groovy文件"
 [aop]:src/main/java/com/github/luomingxuorg/javautil/util/AspectLog.java "aop"
+[snowflake]:src/main/java/com/github/luomingxuorg/javautil/util/Snowflake.java "ID生成"
