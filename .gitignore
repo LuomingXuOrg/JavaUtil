@@ -1,10 +1,5 @@
-#Luoming Xu ignored files
-package.json
-node_modules/
-package-lock.json
-#Luoming Xu ignored files END
 /.idea/
 /target/
 *.jar
 #Test files are in this package
-/src/main/java/Test
+/src/Test

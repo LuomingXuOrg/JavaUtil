@@ -53,9 +53,6 @@
                         <configuration>
                             <source>1.8</source>
                             <target>1.8</target>
-                            <excludes>
-                                <exclude>**/Test/*</exclude>
-                            </excludes>
                         </configuration>
                     </plugin>
                     <!-- Source -->
@@ -63,11 +60,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <version>3.0.1</version>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/Test/*</exclude>
-                            </excludes>
-                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
@@ -87,7 +79,6 @@
                             <charset>UTF-8</charset>
                             <encoding>UTF-8</encoding>
                             <docencoding>UTF-8</docencoding>
-                            <excludePackageNames>Test</excludePackageNames>
                         </configuration>
                         <executions>
                             <execution>
@@ -202,9 +193,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <excludes>
-                        <exclude>**/Test/*</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
