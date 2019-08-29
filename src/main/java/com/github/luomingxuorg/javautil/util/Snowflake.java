@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Random;
 
 /**
+ * 分布式ID生成类
  * Adapted from Twitter's Snowflake
  * http://github.com/twitter/snowflake
  */

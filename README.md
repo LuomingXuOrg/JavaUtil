@@ -16,6 +16,7 @@ entity之间的转化|[converter][]
 从sql生成框架需要的文件|[frameworkFile][]
 aop实现类|[aop]
 分布式ID生成类|[snowflake]
+全国高等学校名单(2019/6/15)|[college]
 
 #### Version
 
@@ -28,7 +29,7 @@ error|错误修正|null
 
 #### Test, PR
 
-如果有测试的代码请新建"src/main/java/Test"目录, 在此目录下进行测试<br>
+如果有测试的代码请新建"src/Test"目录, 在此目录下进行测试<br>
 此目录不会被提交到仓库, 以保证目录的整洁<br>
 
 ![image](dir-tree.png)
@@ -129,3 +130,4 @@ public class ExampleConverter implements Converter
 [frameworkFile]:src/main/java/com/github/luomingxuorg/javautil/util/GenerateFrameworkFile.java "groovy文件"
 [aop]:src/main/java/com/github/luomingxuorg/javautil/util/AspectLog.java "aop"
 [snowflake]:src/main/java/com/github/luomingxuorg/javautil/util/Snowflake.java "ID生成"
+[college]:src/main/resources/college.json "全国高等学校名单, 提供sql与json格式两种"

@@ -18,4 +18,4 @@ mvn_build:
   script: 
     - mvn clean package
   tags: 
-    - docker-executor
+    - gitlab-org
