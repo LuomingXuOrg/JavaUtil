@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.6.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.7.0-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -17,6 +17,7 @@ entity之间的转化|[converter][]
 aop实现类|[aop]
 分布式ID生成类|[snowflake]
 全国高等学校名单(2019/6/15)|[college]
+mybatis column配置生成|[mybatisColumns]
 
 #### Version
 
@@ -107,6 +108,38 @@ public class ExampleConverter implements Converter
 }
 ```
 
+#### MyBatis columns gen
+```java
+public class gen
+{
+    public static void main(String[] args)
+    {
+        String path = "C:\\Users\\Desktop\\script.sql";
+        String formerColumnsResult = "<id column=\"id\" jdbcType=\"BIGINT\" property=\"id\"/>\n" +
+                "<result column=\"comment\" jdbcType=\"VARCHAR\" property=\"comment\"/>\n" +
+                "<result column=\"creator_id\" jdbcType=\"BIGINT\" property=\"creatorId\"/>\n" +
+                "<result column=\"creator_name\" jdbcType=\"VARCHAR\" property=\"creatorName\"/>\n" +
+                "<result column=\"create_time\" jdbcType=\"TIMESTAMP\" property=\"createTime\"/>";
+        
+        CompleteFullColumns.generate(path, formerColumnsResult);
+    }
+    
+    /*
+    result will like: 
+    comment.id as comment_id,
+    comment.comment as comment_comment,
+    comment.creator_id as comment_creator_id,
+    comment.creator_name as comment_creator_name,
+    comment.create_time as comment_create_time,
+    <id column="comment_id" jdbcType="BIGINT" property="id"/>
+    <result column="comment_comment" jdbcType="VARCHAR" property="comment"/>
+    <result column="comment_creator_id" jdbcType="BIGINT" property="creatorId"/>
+    <result column="comment_creator_name" jdbcType="VARCHAR" property="creatorName"/>
+    <result column="comment_create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    */
+}
+```
+
 #### maven dependency
 ```xml
 <dependency>
@@ -131,3 +164,4 @@ public class ExampleConverter implements Converter
 [aop]:src/main/java/com/github/luomingxuorg/javautil/util/AspectLog.java "aop"
 [snowflake]:src/main/java/com/github/luomingxuorg/javautil/util/Snowflake.java "ID生成"
 [college]:src/main/resources/college.json "全国高等学校名单, 提供sql与json格式两种"
+[mybatisColumns]:src/main/java/com/github/luomingxuorg/javautil/util/CompleteFullColumns.java "column配置生成"

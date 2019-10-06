@@ -2,4 +2,4 @@
 /target/
 *.jar
 #Test files are in this package
-src/Test
+src/test
