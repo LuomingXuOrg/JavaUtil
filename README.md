@@ -2,7 +2,7 @@ java工具类
 =
 
 [![Build status](https://ci.appveyor.com/api/projects/status/c5uviv5vhwo07t5i?svg=true)](https://ci.appveyor.com/project/LuomingXu/javautil)
-[![image](https://img.shields.io/badge/maven-v2.7.1-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
+[![image](https://img.shields.io/badge/maven-v2.7.2-blue.svg)](https://search.maven.org/search?q=g:com.github.luomingxuorg%20JavaUtil)
 [![image](https://img.shields.io/badge/License-Apache__v2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
     储存不知道什么时候就会用到的工具类
@@ -19,19 +19,9 @@ aop实现类|[aop]
 全国高等学校名单(2019/6/15)|[college]
 mybatis column配置生成|[mybatisColumns]
 
-#### Version
-
-版本号|说明|当前版本
---------|------------------------------|:--:
-major|主版本号|2
-minor|添加了一些新的功能|6
-build|对功能增加了一些方法, 优化了一些东西|0
-error|错误修正|null
-
 #### Test, PR
 
-如果有测试的代码请新建"src/Test"目录, 在此目录下进行测试<br>
-此目录不会被提交到仓库, 以保证目录的整洁<br>
+如果有测试的代码请新建"/test"目录, 在此目录下进行测试<br>
 
 ![image](dir-tree.png)
 
