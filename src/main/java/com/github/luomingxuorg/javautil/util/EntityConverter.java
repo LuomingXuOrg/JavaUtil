@@ -22,10 +22,8 @@ package com.github.luomingxuorg.javautil.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * do, entity, dto. 转化<br>
@@ -39,21 +37,22 @@ public class EntityConverter
 {
     public static <T> T convert(T destin, Object source)
     {
-        if (source == null) { return null; }
+        if (source == null) { return destin; }
 
-        Class clazz = source.getClass();
-        Field[] fieldsSource = getAllFields(clazz);
-        clazz = destin.getClass();
-        Field[] fieldsDestin = getAllFields(clazz);
+        Field[] fieldsSource = getAllFields(source.getClass());
+        Field[] fieldsDestin = getAllFields(destin.getClass());
+
+        Map<String, Field> destMap = Arrays.stream(fieldsDestin)
+                .filter(item-> !isStatic(item))
+                .collect(Collectors.toMap(Field::getName, item -> item, (old, fresh) -> old));
 
         for (Field fieldSource : fieldsSource)
         {
+            fieldSource.setAccessible(true);
+
             //如果这个field是静态的, 不与目标类型进行匹配
             if (isStatic(fieldSource))
             { continue; }
-
-            fieldSource.setAccessible(true);
-
 
             try
             {
@@ -61,35 +60,27 @@ public class EntityConverter
                 if (sourceValue == null)
                 { continue; }
 
-                for (Field fieldDestin : fieldsDestin)
+                Field fieldDestin = destMap.get(fieldSource.getName());
+                if (fieldDestin == null)
+                { continue; }
+
+                fieldDestin.setAccessible(true);
+
+                if (fieldDestin.getType().equals(fieldSource.getType()))
                 {
-                    //如果这个field是静态的, 不匹配
-                    if (isStatic(fieldDestin))
-                    { break; }
-
-                    fieldDestin.setAccessible(true);
-
-                    if (fieldDestin.getName().equals(fieldSource.getName()))
+                    fieldDestin.set(destin, sourceValue);
+                }
+                else
+                {
+                    //同名属性, 不同类型, 尝试进行类型转化
+                    try
                     {
-                        if (fieldDestin.getType().equals(fieldSource.getType()))
-                        {
-                            fieldDestin.set(destin, sourceValue);
-                        }
-                        else
-                        {
-                            //同名属性, 不同类型, 尝试进行类型转化
-                            try
-                            {
-                                fieldDestin.set(destin, FieldUtil.typeConvert(fieldDestin.getType(), sourceValue));
-                            }
-                            catch (Exception e)
-                            {
-                                //转化失败的话, 设值为null
-                                fieldDestin.set(destin, null);
-                            }
-                        }
-
-                        break;
+                        fieldDestin.set(destin, FieldUtil.typeConvert(fieldDestin.getType(), sourceValue));
+                    }
+                    catch (Exception e)
+                    {
+                        //转化失败的话, 设值为null
+                        fieldDestin.set(destin, null);
                     }
                 }
             }
@@ -104,7 +95,7 @@ public class EntityConverter
     {
         if (source == null || source.size() < 1) { return null; }
 
-        List<T> lists = new LinkedList<>();
+        List<T> lists = new ArrayList<>(source.size());
         Class clazz = destin.getClass();
 
         try
