@@ -32,9 +32,9 @@ import java.util.List;
  * 会同时转化父类里面的字段
  * 不转化static的字段
  *
- * @deprecated 建议使用cglib https://github.com/cglib/cglib
+ * //@deprecated 建议使用cglib https://github.com/cglib/cglib
+ * 重出江湖, cglib在直接由父类对子类进行设值的地方不行
  */
-@Deprecated
 public class EntityConverter
 {
     public static <T> T convert(T destin, Object source)
@@ -54,8 +54,13 @@ public class EntityConverter
 
             fieldSource.setAccessible(true);
 
+
             try
             {
+                Object sourceValue = fieldSource.get(source);
+                if (sourceValue == null)
+                { continue; }
+
                 for (Field fieldDestin : fieldsDestin)
                 {
                     //如果这个field是静态的, 不匹配
@@ -68,14 +73,14 @@ public class EntityConverter
                     {
                         if (fieldDestin.getType().equals(fieldSource.getType()))
                         {
-                            fieldDestin.set(destin, fieldSource.get(source));
+                            fieldDestin.set(destin, sourceValue);
                         }
                         else
                         {
                             //同名属性, 不同类型, 尝试进行类型转化
                             try
                             {
-                                fieldDestin.set(destin, FieldUtil.typeConvert(fieldDestin.getType(), fieldSource.get(source)));
+                                fieldDestin.set(destin, FieldUtil.typeConvert(fieldDestin.getType(), sourceValue));
                             }
                             catch (Exception e)
                             {

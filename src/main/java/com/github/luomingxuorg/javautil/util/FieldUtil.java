@@ -161,11 +161,11 @@ public class FieldUtil
                 }
             }
 
-            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
+            throw new Exception(String.format("Can not convert '%s' to '%s'", sourceObj.getClass(), destinClass));
         }
         catch (Exception e)
         {
-            throw new Exception(String.format("Can not convert \'%s\' to \'%s\'", sourceObj.getClass(), destinClass));
+            throw new Exception(String.format("Can not convert '%s' to '%s'", sourceObj.getClass(), destinClass));
         }
     }
 }
